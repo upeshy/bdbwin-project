@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GCIT Foundation Computer Education</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#0b1320,#020617);
+color:white;
+overflow-x:hidden;
+}
+
+/* BUBBLES BACKGROUND */
+
+.bubbles{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+z-index:-1;
+overflow:hidden;
+}
+
+.bubbles span{
+position:absolute;
+bottom:-100px;
+width:25px;
+height:25px;
+background:rgba(255,221,0,0.35);
+border-radius:50%;
+animation:rise 18s linear infinite;
+}
+
+@keyframes rise{
+
+0%{
+transform:translateY(0) scale(.4);
+opacity:.6;
+}
+
+100%{
+transform:translateY(-1200px) scale(1);
+opacity:0;
+}
+
+}
+
+/* HEADER */
+
+header{
+background:linear-gradient(90deg,#020617,#0f172a);
+text-align:center;
+padding:25px;
+box-shadow:0 0 30px rgba(0,0,0,0.6);
+border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+/* TITLE STRIP */
+
+header h1{
+
+display:inline-block;
+
+background:#10b981;
+
+color:#ffd900;
+
+font-size:clamp(26px,4vw,34px);
+
+font-family:'Orbitron', sans-serif;
+
+font-weight:800;
+
+letter-spacing:4px;
+
+padding:10px 28px;
+
+border-radius:6px;
+
+border:2px solid #065f46;
+
+animation:titleFloat 3s ease-in-out infinite;
+
+}
+
+/* TITLE ANIMATION */
+
+@keyframes titleFloat{
+
+0%{transform:translateY(0px);}
+50%{transform:translateY(-3px);}
+100%{transform:translateY(0px);}
+
+}
+
+/* TEXT BELOW TITLE */
+
+.welcome{
+font-size:22px;
+margin-top:8px;
+color:#e2e8f0;
+}
+
+.owner{
+margin-top:8px;
+font-size:20px;
+color:#00ffd5;
+font-weight:bold;
+}
+
+/* NAVBAR */
+
+nav{
+background:linear-gradient(90deg,#020617,#111827);
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+nav a{
+color:white;
+padding:15px 22px;
+text-decoration:none;
+transition:.3s;
+}
+
+nav a:hover{
+background:#ffd900;
+color:black;
+border-radius:6px;
+}
+
+/* HERO */
+
+.hero{
+text-align:center;
+padding:140px 20px;
+background:
+linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
+url("https://images.unsplash.com/photo-1523580846011-d3a5bc25702b");
+background-size:cover;
+background-position:center;
+}
+
+.hero h1{
+font-size:50px;
+color:#ffd900;
+margin-bottom:10px;
+}
+
+/* SECTION */
+
+.section{
+padding:90px 20px;
+max-width:1100px;
+margin:auto;
+}
+
+.section h2{
+text-align:center;
+margin-bottom:45px;
+font-size:32px;
+color:#ffd900;
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+}
+
+/* CARD */
+
+.card{
+
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(8px);
+padding:28px;
+border-radius:14px;
+text-align:center;
+transition:.35s;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.card:hover{
+
+transform:translateY(-12px) scale(1.03);
+
+box-shadow:
+0 10px 35px rgba(0,0,0,0.6),
+0 0 20px rgba(255,221,0,0.4);
+
+}
+
+/* BUTTON */
+
+button{
+
+margin-top:14px;
+padding:11px 22px;
+border:none;
+border-radius:30px;
+
+background:linear-gradient(45deg,#ffd900,#ffb700);
+
+color:black;
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+transform:scale(1.08);
+
+box-shadow:0 0 18px #ffd900;
+
+}
+
+/* COUNT */
+
+.count{
+font-size:22px;
+color:#00ffd5;
+font-weight:bold;
+}
+
+/* FORM */
+
+form{
+
+background:rgba(255,255,255,0.05);
+
+padding:35px;
+
+border-radius:12px;
+
+border:1px solid rgba(255,255,255,0.08);
+
+}
+
+input,select,textarea{
+
+width:100%;
+
+padding:11px;
+
+margin:10px 0;
+
+border:none;
+
+border-radius:6px;
+
+background:#020617;
+
+color:white;
+
+}
+
+/* GALLERY */
+
+.gallery img{
+
+width:100%;
+
+border-radius:12px;
+
+transition:.4s;
+
+}
+
+.gallery img:hover{
+
+transform:scale(1.05);
+
+box-shadow:0 0 20px rgba(255,221,0,0.5);
+
+}
+
+/* TEACHER */
+
+.teacher img{
+
+width:95px;
+
+border-radius:50%;
+
+margin-bottom:12px;
+
+border:3px solid #ffd900;
+
+}
+
+/* FOOTER */
+
+footer{
+
+background:#020617;
+
+text-align:center;
+
+padding:25px;
+
+margin-top:40px;
+
+border-top:1px solid rgba(255,255,255,0.1);
+
+}
+
+/* WHATSAPP */
+
+.whatsapp{
+
+position:fixed;
+
+bottom:20px;
+
+right:20px;
+
+background:#25D366;
+
+color:white;
+
+padding:14px 20px;
+
+border-radius:30px;
+
+text-decoration:none;
+
+font-weight:bold;
+
+box-shadow:0 0 15px rgba(0,0,0,0.4);
+
+}
+
+/* MODAL */
+
+.modal{
+
+display:none;
+
+position:fixed;
+
+left:0;
+
+top:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(0,0,0,.75);
+
+}
+
+.modal-content{
+
+background:#020617;
+
+padding:30px;
+
+max-width:420px;
+
+margin:10% auto;
+
+border-radius:12px;
+
+text-align:center;
+
+border:1px solid rgba(255,255,255,0.1);
+
+}
+
+.close{
+
+float:right;
+
+cursor:pointer;
+
+font-size:22px;
+
+}
+
+.price{
+
+font-size:26px;
+
+color:#ffd900;
+
+font-weight:bold;
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bubbles">
+<span style="left:10%"></span>
+<span style="left:30%"></span>
+<span style="left:50%"></span>
+<span style="left:70%"></span>
+<span style="left:90%"></span>
+</div>
+
+<header>
+<h1>GCIT FOUNDATION</h1>
+<div class="welcome">Welcomes You</div>
+<div class="owner">Director : Sumit Sharma</div>
+</header>
+
+<nav>
+<a href="#">Home</a>
+<a href="#about">About</a>
+<a href="#courses">Courses</a>
+<a href="#teachers">Teachers</a>
+<a href="#gallery">Gallery</a>
+<a href="#register">Register</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<section class="hero">
+<h1>Professional Computer Training Institute</h1>
+<p>Build Your Digital Career With Us</p>
+</section>
+
+<section class="section" id="about">
+<h2>About Us</h2>
+<p style="text-align:center">
+GCIT Foundation provides affordable computer education and academic coaching.
+</p>
+</section>
+
+<section class="section">
+<h2>Why Choose Us</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Expert Teachers</h3>
+<p>Experienced faculty with practical knowledge</p>
+</div>
+
+<div class="card">
+<h3>Practical Training</h3>
+<p>Real projects and practical computer training</p>
+</div>
+
+<div class="card">
+<h3>Affordable Fees</h3>
+<p>Quality education at very low cost</p>
+</div>
+
+<div class="card">
+<h3>Certificates</h3>
+<p>Course completion certificate provided</p>
+</div>
+
+</div>
+</section>
+
+<section class="section" id="courses">
+<h2>Our Courses</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Junior Class 1-5 (DARHAR)</h3>
+<p>Students : <span class="count">120</span></p>
+<button onclick="openCourse('Junior Class 1-5','Government School Students','₹249/month')">View</button>
+</div>
+
+<div class="card">
+<h3>Junior Class 1-5 (BAHADURPUR)</h3>
+<p>Students : <span class="count">95</span></p>
+<button onclick="openCourse('Junior Class 1-5','Bahadurpur Branch','₹499/month')">View</button>
+</div>
+
+<div class="card">
+<h3>Class 6-7 CBSE</h3>
+<p>Students : <span class="count">80</span></p>
+<button onclick="openCourse('Class 6-7 CBSE','All Subjects','₹599/month')">View</button>
+</div>
+
+<div class="card">
+<h3>Class 8-9 CBSE</h3>
+<p>Students : <span class="count">75</span></p>
+<button onclick="openCourse('Class 8-9 CBSE','All Subjects','₹699/month')">View</button>
+</div>
+
+<div class="card">
+<h3>Class 10th Board</h3>
+<p>Students : <span class="count">110</span></p>
+<button onclick="openCourse('Class 10th','Board Preparation','₹499/month')">View</button>
+</div>
+
+<div class="card">
+<h3>Class 11-12 Science</h3>
+<p>Students : <span class="count">60</span></p>
+<button onclick="openCourse('Class 11-12 Science','All Subjects','₹1499/month')">View</button>
+</div>
+
+<div class="card">
+<h3>IIT / NEET Foundation</h3>
+<p>Students : <span class="count">45</span></p>
+<button onclick="openCourse('IIT NEET Foundation','Entrance Preparation','₹499/month')">View</button>
+</div>
+
+<div class="card">
+<h3>Computer Course</h3>
+<p>Students : <span class="count">140</span></p>
+<button onclick="openCourse('Computer Course','Professional Computer Training','₹799/month')">View</button>
+</div>
+
+<div class="card">
+<h3>Polytechnic / ITI / Paramedical</h3>
+<p>Students : <span class="count">35</span></p>
+<button onclick="openCourse('Polytechnic ITI','Entrance Preparation','₹499/month')">View</button>
+</div>
+
+<div class="card">
+<h3>Class 12 English (Girls)</h3>
+<p>Students : <span class="count">30</span></p>
+<button onclick="openCourse('Class 12 English','Girls Free Batch','FREE')">View</button>
+</div>
+
+<div class="card">
+<h3>Class 10 Maths (Girls)</h3>
+<p>Students : <span class="count">28</span></p>
+<button onclick="openCourse('Class 10 Maths','Girls Free Batch','FREE')">View</button>
+</div>
+
+</div>
+</section>
+
+<section class="section" id="teachers">
+<h2>Our Teachers</h2>
+
+<div class="grid">
+
+<div class="card teacher">
+<img src="https://randomuser.me/api/portraits/men/32.jpg">
+<h3>Sumit Sharma</h3>
+<p>Computer Trainer</p>
+</div>
+
+<div class="card teacher">
+<img src="https://randomuser.me/api/portraits/women/44.jpg">
+<h3>Neha Sharma</h3>
+<p>Math Teacher</p>
+</div>
+
+<div class="card teacher">
+<img src="https://randomuser.me/api/portraits/men/55.jpg">
+<h3>Rahul Singh</h3>
+<p>Science Teacher</p>
+</div>
+
+</div>
+</section>
+
+<section class="section gallery" id="gallery">
+<h2>Gallery</h2>
+
+<div class="grid">
+<img src="https://images.unsplash.com/photo-1588072432836-e10032774350">
+<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f">
+<img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b">
+</div>
+</section>
+</section>
+
+<!-- STUDENT REVIEWS ADDED -->
+
+<section class="section">
+<h2>Student Reviews</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Rahul Kumar</h3>
+<p>⭐⭐⭐⭐⭐</p>
+<p>Best computer institute. Teachers explain very clearly.</p>
+</div>
+
+<div class="card">
+<h3>Pooja Singh</h3>
+<p>⭐⭐⭐⭐⭐</p>
+<p>Affordable fees and good practical training.</p>
+</div>
+
+<div class="card">
+<h3>Aman Verma</h3>
+<p>⭐⭐⭐⭐</p>
+<p>Very good institute for computer and school coaching.</p>
+</div>
+
+<div class="card">
+<h3>Neha Gupta</h3>
+<p>⭐⭐⭐⭐⭐</p>
+<p>I learned MS Office and internet skills here.</p>
+</div>
+
+</div>
+</section>
+<section class="section" id="register">
+<h2>Student Registration</h2>
+
+<form onsubmit="sendWhatsApp();return false;">
+
+<input id="name" type="text" placeholder="Full Name" required>
+<input id="phone" type="tel" placeholder="Mobile Number" required>
+
+<select id="course" required>
+
+<option>Select Course</option>
+
+<option>Junior Class 1-5 (DARHAR)</option>
+<option>Junior Class 1-5 (BAHADURPUR)</option>
+<option>Class 6-7 CBSE</option>
+<option>Class 8-9 CBSE</option>
+<option>Class 10th Board Preparation</option>
+<option>Class 11-12 Science</option>
+<option>IIT / NEET Foundation</option>
+<option>Computer Course</option>
+<option>Polytechnic / ITI / Paramedical</option>
+<option>Class 12 English (Girls Free)</option>
+<option>Class 10 Maths (Girls Free)</option>
+
+</select>
+
+<textarea id="address" placeholder="Address"></textarea>
+
+<button type="submit">Submit</button>
+
+</form>
+
+</section>
+
+<section class="section" id="contact">
+
+<h2>Contact Us</h2>
+
+<p style="text-align:center">
+
+📍 Bahadurpur & Darhar  
+<br><br>
+📞 8935866229  
+<br><br>
+📧 gcitfoundation@gmail.com
+
+</p>
+
+<br>
+
+<iframe src="https://maps.google.com/maps?q=india&t=&z=13&ie=UTF8&iwloc=&output=embed"
+width="100%" height="300"></iframe>
+
+</section>
+
+<footer>
+<p>© 2026 GCIT FOUNDATION</p>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/918935866229" target="_blank">
+WhatsApp
+</a>
+
+<div id="courseModal" class="modal">
+<div class="modal-content">
+
+<span class="close" onclick="closeModal()">✖</span>
+
+<h2 id="courseTitle"></h2>
+<p id="courseDesc"></p>
+<div class="price" id="coursePrice"></div>
+
+</div>
+</div>
+
+<script>
+
+function openCourse(title,desc,price){
+
+document.getElementById("courseTitle").innerText=title;
+document.getElementById("courseDesc").innerText=desc;
+document.getElementById("coursePrice").innerText=price;
+document.getElementById("courseModal").style.display="block";
+
+}
+
+function closeModal(){
+
+document.getElementById("courseModal").style.display="none";
+
+}
+
+function sendWhatsApp(){
+
+var name=document.getElementById("name").value;
+var phone=document.getElementById("phone").value;
+var course=document.getElementById("course").value;
+var address=document.getElementById("address").value;
+
+var url="https://wa.me/918935866229?text="
++"New Admission%0A"
++"Name: "+name+"%0A"
++"Phone: "+phone+"%0A"
++"Course: "+course+"%0A"
++"Address: "+address;
+
+window.open(url,'_blank');
+
+}
+
+/* STUDENT COUNTER */
+
+let counters=document.querySelectorAll('.count');
+
+counters.forEach(counter=>{
+
+let target=+counter.innerText;
+let count=0;
+
+function update(){
+
+count+=Math.ceil(target/100);
+
+if(count>=target){
+counter.innerText=target;
+}else{
+counter.innerText=count;
+requestAnimationFrame(update);
+}
+
+}
+
+update();
+
+});
+
+</script>
+
+</body>
+</html>
