@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GCIT Admin Panel</title>
+<style>
+body{font-family:Arial,sans-serif;background:#0b1320;color:white;margin:0;padding:0;}
+header{background:#020617;padding:15px;text-align:center;font-size:24px;color:#ffd900;}
+.container{max-width:1200px;margin:auto;padding:20px;overflow-x:auto;}
+h2{color:#ffd900;text-align:center;margin-bottom:20px;}
+table{width:100%;border-collapse:collapse;min-width:1000px;}
+th,td{padding:10px;text-align:left;border-bottom:1px solid #444;}
+th{background:#111827;}
+tr:hover{background:rgba(255,221,0,0.1);}
+button{padding:6px 12px;border:none;border-radius:6px;background:#ffd900;color:black;font-weight:bold;cursor:pointer;margin-right:4px;}
+button:hover{opacity:0.8;}
+input,select,textarea{padding:6px;margin:4px 0;border-radius:4px;border:none;background:#020617;color:white;width:100%;}
+.modal{display:none;position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;overflow-y:auto;}
+.modal-content{background:#020617;padding:20px;border-radius:10px;max-width:600px;width:90%;margin:5% auto;position:relative;}
+.close{position:absolute;top:10px;right:15px;font-size:20px;cursor:pointer;color:#ffd900;}
+label{font-weight:bold;}
+img{border-radius:4px;}
+.settings-section{margin-top:40px;}
+</style>
+</head>
+<body>
+
+<header>GCIT FOUNDATION Admin Panel</header>
+
+<div class="container">
+
+<!-- Login -->
+<h2>Login</h2>
+<div id="loginDiv">
+  <input type="email" id="adminEmail" placeholder="Email"><br>
+  <input type="password" id="adminPassword" placeholder="Password"><br>
+  <button onclick="loginAdmin()">Login</button>
+</div>
+
+<!-- Admin Panel -->
+<div id="adminPanel" style="display:none;">
+
+  <!-- Students Records -->
+  <h2>Students Records</h2>
+  <label>Select Category:</label>
+  <select id="categorySelect" onchange="loadRecords()">
+    <option value="computer">Computer Courses</option>
+    <option value="coaching">Coaching Courses</option>
+  </select>
+
+  <table id="recordsTable">
+    <thead>
+      <tr>
+        <th>Name</th><th>Father</th><th>Mother</th><th>Phone</th>
+        <th>Email</th><th>DOB</th><th>Course</th><th>Address</th>
+        <th>Photo</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- Settings Section -->
+ <div class="settings-section">
+  <h2>Website Settings</h2>
+
+  <label>Director Name</label>
+  <input type="text" id="directorName">
+
+  <label>About Text</label>
+  <textarea id="aboutText"></textarea>
+
+  <label>Welcome Text</label>
+  <textarea id="welcomeText"></textarea>
+
+  <h3>Teachers</h3>
+  <input type="text" id="teacher1" placeholder="Teacher 1 Name">
+  <input type="text" id="teacher2" placeholder="Teacher 2 Name">
+  <input type="text" id="teacher3" placeholder="Teacher 3 Name">
+
+  <button onclick="updateSettings()">Save All Settings</button>
+</div>
+
+<!-- Edit Student Modal -->
+<div class="modal" id="editModal">
+  <div class="modal-content">
+    <span class="close" onclick="closeEditModal()">✖</span>
+    <h3>Edit Student</h3>
+    <input type="text" id="editName" placeholder="Name">
+    <input type="text" id="editFather" placeholder="Father Name">
+    <input type="text" id="editMother" placeholder="Mother Name">
+    <input type="tel" id="editPhone" placeholder="Phone">
+    <input type="email" id="editEmail" placeholder="Email">
+    <input type="date" id="editDOB" placeholder="DOB">
+    <input type="text" id="editCourse" placeholder="Course">
+    <textarea id="editAddress" placeholder="Address"></textarea>
+    <button onclick="updateRecord()">Save Changes</button>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getDatabase, ref, get, child, update, remove, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+// Firebase Config
+const firebaseConfig = {
+  apiKey:"AIzaSyDJeCeh1kA9rNqFEtTIkc5zUnS0wZnfguE",
+  authDomain:"ngo-4322f.firebaseapp.com",
+  databaseURL:"https://ngo-4322f-default-rtdb.firebaseio.com",
+  projectId:"ngo-4322f",
+  storageBucket:"ngo-4322f.appspot.com",
+  messagingSenderId:"802049839176",
+  appId:"1:802049839176:web:28bba1c0da47dad891c87d"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
+
+// Firebase references
+const settingsRef = ref(db, 'settings');
+
+let currentCategory = 'computer';
+let editKey = null;
+
+// --- LOGIN ---
+window.loginAdmin = function(){
+  const email = document.getElementById('adminEmail').value;
+  const pass = document.getElementById('adminPassword').value;
+
+  signInWithEmailAndPassword(auth, email, pass)
+    .then(() => {
+      alert("Login Successful ✅");
+      document.getElementById('loginDiv').style.display='none';
+      document.getElementById('adminPanel').style.display='block';
+      loadRecords();
+      loadSettings();
+    })
+    .catch(err=>{
+      alert("Login Failed ❌\n"+err.message);
+    });
+}
+
+// --- LOAD STUDENTS ---
+window.loadRecords = function(){
+  currentCategory = document.getElementById('categorySelect').value;
+  const tbody = document.querySelector('#recordsTable tbody');
+  const studentsRef = ref(db, `students/${currentCategory}`);
+
+  onValue(studentsRef, snapshot=>{
+    tbody.innerHTML='';
+    if(snapshot.exists()){
+      snapshot.forEach(childSnap=>{
+        const data = childSnap.val();
+        const key = childSnap.key;
+        const tr = document.createElement('tr');
+        tr.innerHTML=`
+          <td>${data.name || ''}</td>
+          <td>${data.father || ''}</td>
+          <td>${data.mother || ''}</td>
+          <td>${data.phone || ''}</td>
+          <td>${data.email || ''}</td>
+          <td>${data.dob || ''}</td>
+          <td>${data.course || ''}</td>
+          <td>${data.address || ''}</td>
+          <td><img src="${data.photo || ''}" width="50"></td>
+          <td>
+            <button onclick="openEditModal('${key}')">Edit</button>
+            <button onclick="deleteRecord('${key}')">Delete</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+  });
+}
+
+// --- DELETE STUDENT ---
+window.deleteRecord = function(key){
+  if(confirm("Are you sure you want to delete this record?")){
+    remove(ref(db, `students/${currentCategory}/${key}`))
+      .then(()=>alert("Record Deleted ✅"))
+      .catch(err=>alert("❌ Error: "+err.message));
+  }
+}
+
+// --- EDIT STUDENT ---
+window.openEditModal = function(key){
+  editKey = key;
+  get(child(ref(db), `students/${currentCategory}/${key}`)).then(snap=>{
+    const data = snap.val();
+    document.getElementById('editName').value = data.name || '';
+    document.getElementById('editFather').value = data.father || '';
+    document.getElementById('editMother').value = data.mother || '';
+    document.getElementById('editPhone').value = data.phone || '';
+    document.getElementById('editEmail').value = data.email || '';
+    document.getElementById('editDOB').value = data.dob || '';
+    document.getElementById('editCourse').value = data.course || '';
+    document.getElementById('editAddress').value = data.address || '';
+    document.getElementById('editModal').style.display='block';
+  });
+}
+
+window.closeEditModal = function(){ document.getElementById('editModal').style.display='none'; }
+
+window.updateRecord = function(){
+  const updatedData = {
+    name: document.getElementById('editName').value,
+    father: document.getElementById('editFather').value,
+    mother: document.getElementById('editMother').value,
+    phone: document.getElementById('editPhone').value,
+    email: document.getElementById('editEmail').value,
+    dob: document.getElementById('editDOB').value,
+    course: document.getElementById('editCourse').value,
+    address: document.getElementById('editAddress').value
+  };
+  update(ref(db, `students/${currentCategory}/${editKey}`), updatedData)
+    .then(()=>{ alert("Record Updated ✅"); closeEditModal(); })
+    .catch(err=>alert("❌ Error: "+err.message));
+}
+
+// --- SETTINGS ---
+window.loadSettings = function(){
+  get(settingsRef)
+    .then(snapshot=>{
+      if(snapshot.exists()){
+        const data = snapshot.val();
+        document.getElementById('directorName').value = data.director || '';
+        document.getElementById('aboutText').value = data.about || '';
+        document.getElementById('welcomeText').value = data.welcome || '';
+        document.getElementById('teacher1').value = data.teacher1 || '';
+        document.getElementById('teacher2').value = data.teacher2 || '';
+        document.getElementById('teacher3').value = data.teacher3 || '';
+      }
+    })
+    .catch(err=>alert("❌ Error Loading Settings: "+err.message));
+}
+
+window.updateSettings = function(){
+  const updatedData = {};
+  if(document.getElementById('directorName').value) updatedData.director = document.getElementById('directorName').value;
+  if(document.getElementById('aboutText').value) updatedData.about = document.getElementById('aboutText').value;
+  if(document.getElementById('welcomeText').value) updatedData.welcome = document.getElementById('welcomeText').value;
+  if(document.getElementById('teacher1').value) updatedData.teacher1 = document.getElementById('teacher1').value;
+  if(document.getElementById('teacher2').value) updatedData.teacher2 = document.getElementById('teacher2').value;
+  if(document.getElementById('teacher3').value) updatedData.teacher3 = document.getElementById('teacher3').value;
+
+  update(settingsRef, updatedData)
+    .then(()=>alert("✅ Settings Updated"))
+    .catch(err=>alert("❌ Error: "+err.message));
+}
+</script>
+
+</body>
+</html>
