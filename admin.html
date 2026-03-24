@@ -51,11 +51,21 @@ img{border-radius:4px;}
 
   <table id="recordsTable">
     <thead>
-      <tr>
-        <th>Name</th><th>Father</th><th>Mother</th><th>Phone</th>
-        <th>Email</th><th>DOB</th><th>Course</th><th>Address</th>
-        <th>Photo</th><th>Actions</th>
-      </tr>
+      
+        <tr>
+  <th>Name</th>
+  <th>Father</th>
+  <th>Mother</th>
+  <th>Branch</th>
+  <th>Phone</th>
+  <th>Email</th>
+  <th>DOB</th>
+  <th>Course</th>
+  <th>Address</th>
+  <th>Photo</th>
+  <th>Actions</th>
+</tr>
+      
     </thead>
     <tbody></tbody>
   </table>
@@ -89,6 +99,7 @@ img{border-radius:4px;}
     <input type="text" id="editName" placeholder="Name">
     <input type="text" id="editFather" placeholder="Father Name">
     <input type="text" id="editMother" placeholder="Mother Name">
+    <input type="text" id="editBranch" placeholder="Branch">
     <input type="tel" id="editPhone" placeholder="Phone">
     <input type="email" id="editEmail" placeholder="Email">
     <input type="date" id="editDOB" placeholder="DOB">
@@ -159,6 +170,7 @@ window.loadRecords = function(){
           <td>${data.name || ''}</td>
           <td>${data.father || ''}</td>
           <td>${data.mother || ''}</td>
+          <td>${data.branch || ''}</td>
           <td>${data.phone || ''}</td>
           <td>${data.email || ''}</td>
           <td>${data.dob || ''}</td>
@@ -193,6 +205,7 @@ window.openEditModal = function(key){
     document.getElementById('editName').value = data.name || '';
     document.getElementById('editFather').value = data.father || '';
     document.getElementById('editMother').value = data.mother || '';
+    document.getElementById('editCourse').value = data.branch || '';
     document.getElementById('editPhone').value = data.phone || '';
     document.getElementById('editEmail').value = data.email || '';
     document.getElementById('editDOB').value = data.dob || '';
@@ -209,6 +222,7 @@ window.updateRecord = function(){
     name: document.getElementById('editName').value,
     father: document.getElementById('editFather').value,
     mother: document.getElementById('editMother').value,
+    branch: document.getElementById('editBranch').value,
     phone: document.getElementById('editPhone').value,
     email: document.getElementById('editEmail').value,
     dob: document.getElementById('editDOB').value,
