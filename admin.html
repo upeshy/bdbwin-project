@@ -80,6 +80,19 @@ img{border-radius:4px;}
   <label>About Text</label>
   <textarea id="aboutText"></textarea>
 
+<h3>Latest News Popup</h3>
+
+<label>News Text</label>
+<textarea id="newsText"></textarea>
+
+<label>Show Popup</label>
+<select id="newsShow">
+  <option value="true">Show</option>
+  <option value="false">Hide</option>
+</select>
+
+   
+
   <label>Welcome Text</label>
   <textarea id="welcomeText"></textarea>
 
@@ -240,12 +253,20 @@ window.loadSettings = function(){
     .then(snapshot=>{
       if(snapshot.exists()){
         const data = snapshot.val();
+
+        // Basic Settings
         document.getElementById('directorName').value = data.director || '';
         document.getElementById('aboutText').value = data.about || '';
         document.getElementById('welcomeText').value = data.welcome || '';
         document.getElementById('teacher1').value = data.teacher1 || '';
         document.getElementById('teacher2').value = data.teacher2 || '';
         document.getElementById('teacher3').value = data.teacher3 || '';
+
+        // 🔥 Latest News Popup Settings
+        if(data.news){
+          document.getElementById('newsText').value = data.news.text || '';
+          document.getElementById('newsShow').value = data.news.show ? "true" : "false";
+        }
       }
     })
     .catch(err=>alert("❌ Error Loading Settings: "+err.message));
@@ -259,11 +280,15 @@ window.updateSettings = function(){
   if(document.getElementById('teacher1').value) updatedData.teacher1 = document.getElementById('teacher1').value;
   if(document.getElementById('teacher2').value) updatedData.teacher2 = document.getElementById('teacher2').value;
   if(document.getElementById('teacher3').value) updatedData.teacher3 = document.getElementById('teacher3').value;
-
+   updatedData.news = {
+    text: document.getElementById('newsText').value,
+    show: document.getElementById('newsShow').value === "true"
+  };
   update(settingsRef, updatedData)
     .then(()=>alert("✅ Settings Updated"))
     .catch(err=>alert("❌ Error: "+err.message));
 }
+  
 </script>
 
 </body>
