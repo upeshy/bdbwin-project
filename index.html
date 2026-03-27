@@ -69,6 +69,15 @@ footer{background:#020617;text-align:center;padding:25px;margin-top:40px;border-
 .modal-content{background:#020617;padding:30px;max-width:420px;margin:10% auto;border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,0.1);}
 .close{float:right;cursor:pointer;font-size:22px;}
 .price{font-size:26px;color:#ffd900;font-weight:bold;}
+#newsPopup .modal-content{
+  border:2px solid #ffd900;
+  box-shadow:0 0 20px rgba(255,221,0,0.6);
+  animation:popupAnim .4s ease;
+}
+@keyframes popupAnim{
+  from{transform:scale(.7);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
 </style>
 </head>
 <body>
@@ -106,6 +115,16 @@ GCIT Foundation provides affordable computer education and academic coaching.
 </p>
 </section>
 
+<!-- NEWS POPUP -->
+<div id="newsPopup" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeNews()">✖</span>
+    <h2>📢 Latest News</h2>
+    <p id="newsText">Loading...</p>
+  </div>
+</div>
+
+  
 <section class="section">
 <h2>Why Choose Us</h2>
 <div class="grid">
@@ -410,7 +429,25 @@ document.querySelectorAll("#register form")[1].reset();
 alert("❌ Error: " + error.message);
 });
 }
+function closeNews(){
+  document.getElementById("newsPopup").style.display="none";
+}
 
+// Firebase se News fetch
+firebase.database().ref("settings/news").on("value", snap => {
+  if(snap.exists()){
+    let news = snap.val();
+
+    if(news.text){
+      document.getElementById("newsText").innerText = news.text;
+
+      // Show popup only if enabled
+      if(news.show === true){
+        document.getElementById("newsPopup").style.display = "block";
+      }
+    }
+  }
+});
 // Student Counters Animation
 let counters = document.querySelectorAll('.count');
 counters.forEach(counter => {
