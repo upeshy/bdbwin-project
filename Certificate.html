@@ -399,14 +399,22 @@ function generateCertificate(){
 
   document.getElementById("certClose").classList.add("hide");
 
-  html2canvas(cert,{scale:2}).then(canvas=>{
-    let img = canvas.toDataURL("image/png");
-    certPDF = new jsPDF('landscape','mm','a4');
-    certPDF.addImage(img,'PNG',5,5,287,200);
+  html2canvas(card,{
+  scale:3,
+  useCORS:true
+}).then(canvas=>{
 
-    document.getElementById("downloadCertBtn").style.display = "inline-block";
-    document.getElementById("certClose").classList.remove("hide");
-  });
+  let img = canvas.toDataURL("image/png");
+
+  // ✅ YAHAN CHANGE KIYA
+  idPDF = new jsPDF('p','mm',[54,85.6]);
+
+  // SIZE bhi adjust karo
+  idPDF.addImage(img,'PNG',0,0,54,85.6);
+
+  document.getElementById("downloadIDBtn").style.display = "inline-block";
+
+});
 }
 
 // ID CARD
