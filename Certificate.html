@@ -33,6 +33,18 @@ button{
   border-radius:6px;
 }
 
+/* CLOSE BUTTON */
+.close-btn{
+  position:absolute;
+  top:10px;
+  right:10px;
+  background:red;
+  color:white;
+  padding:5px 10px;
+  cursor:pointer;
+  border-radius:5px;
+}
+
 /* CERTIFICATE */
 #certificate{
   width:1000px;
@@ -77,13 +89,6 @@ button{
   margin:20px 0;
 }
 
-.sign{
-  position:absolute;
-  bottom:40px;
-  left:50%;
-  transform:translateX(-50%);
-}
-
 /* ID CARD */
 #idcard{
   width:320px;
@@ -96,6 +101,7 @@ button{
   color:black;
   padding:15px;
   border-radius:10px;
+  position:relative;
 }
 
 .id-header{
@@ -122,7 +128,6 @@ button{
 <input type="text" id="id" placeholder="Student ID"><br>
 <input type="file" id="photoInput"><br>
 
-<!-- BUTTONS -->
 <button onclick="previewCertificate()">👁 Preview Certificate</button>
 <button onclick="downloadCertificate()">⬇ Download Certificate</button><br>
 
@@ -132,6 +137,9 @@ button{
 <!-- CERTIFICATE -->
 <div id="certificate">
   <div class="cert">
+    
+    <div class="close-btn" onclick="closeCertificate()">✖</div>
+
     <div class="logo">GCIT<br>FOUNDATION</div>
 
     <h1>CERTIFICATE</h1>
@@ -142,17 +150,21 @@ button{
     <p>Completed course</p>
     <h3 id="c_course"></h3>
 
-    <div class="sign">
+    <div style="position:absolute; bottom:40px; left:50%; transform:translateX(-50%);">
       <h3 style="font-family:cursive;">Upesh Kumar</h3>
       <hr>
       <span>Director</span>
     </div>
+
   </div>
 </div>
 
 <!-- ID CARD -->
 <div id="idcard">
   <div class="id-box">
+
+    <div class="close-btn" onclick="closeID()">✖</div>
+
     <div class="id-header">GCIT FOUNDATION</div>
 
     <img id="photo"><br>
@@ -163,6 +175,7 @@ button{
     <p style="font-weight:bold;">
       Student ID: <span id="i_id"></span>
     </p>
+
   </div>
 </div>
 
@@ -185,7 +198,7 @@ function previewCertificate(){
   document.getElementById("certificate").style.display = "block";
 }
 
-// DOWNLOAD CERTIFICATE
+// DOWNLOAD CERTIFICATE (EXACT SIZE)
 function downloadCertificate(){
   let cert = document.getElementById("certificate");
 
@@ -195,8 +208,15 @@ function downloadCertificate(){
   }
 
   html2canvas(cert).then(canvas=>{
-    let pdf = new jsPDF('landscape');
-    pdf.addImage(canvas.toDataURL("image/png"),'PNG',10,10,280,150);
+    let img = canvas.toDataURL("image/png");
+
+    let pdf = new jsPDF({
+      orientation:'landscape',
+      unit:'px',
+      format:[canvas.width, canvas.height]
+    });
+
+    pdf.addImage(img,'PNG',0,0,canvas.width,canvas.height);
     pdf.save("certificate.pdf");
   });
 }
@@ -225,7 +245,7 @@ function previewID(){
   reader.readAsDataURL(file);
 }
 
-// DOWNLOAD ID
+// DOWNLOAD ID (EXACT SIZE)
 function downloadID(){
   let card = document.getElementById("idcard");
 
@@ -235,10 +255,25 @@ function downloadID(){
   }
 
   html2canvas(card).then(canvas=>{
-    let pdf = new jsPDF();
-    pdf.addImage(canvas.toDataURL("image/png"),'PNG',10,10,80,50);
+    let img = canvas.toDataURL("image/png");
+
+    let pdf = new jsPDF({
+      unit:'px',
+      format:[canvas.width, canvas.height]
+    });
+
+    pdf.addImage(img,'PNG',0,0,canvas.width,canvas.height);
     pdf.save("idcard.pdf");
   });
+}
+
+// CLOSE
+function closeCertificate(){
+  document.getElementById("certificate").style.display = "none";
+}
+
+function closeID(){
+  document.getElementById("idcard").style.display = "none";
 }
 </script>
 
