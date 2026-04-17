@@ -34,7 +34,7 @@ button{
 }
 
 /* CLOSE BUTTON */
-.close-btn{
+.no-print{
   position:absolute;
   top:10px;
   right:15px;
@@ -43,6 +43,10 @@ button{
   cursor:pointer;
   font-weight:bold;
   z-index:10;
+}
+
+.hide{
+  display:none !important;
 }
 
 /* CERTIFICATE */
@@ -55,32 +59,35 @@ button{
 .cert{
   width:100%;
   height:100%;
-  background:#fff;
-  border:12px solid gold;
+  background:linear-gradient(135deg,#fff,#f9f3e7);
+  border:15px solid #c9a227;
   position:relative;
-  padding:40px;
+  padding:60px 40px;
   box-sizing:border-box;
+  overflow:hidden;
 }
 
-/* CUT MARK */
-.cut-border{
-  position:absolute;
-  top:10px;
-  left:10px;
-  right:10px;
-  bottom:10px;
-  border:2px dashed red;
-}
-
-/* DESIGN */
-.top-design{
+/* GOLD CORNERS */
+.cert::before{
+  content:"";
   position:absolute;
   top:0;
   right:0;
-  width:300px;
-  height:150px;
-  background:linear-gradient(45deg,#ff0000,#b71c1c,#ffd700);
-  border-bottom-left-radius:100px;
+  width:250px;
+  height:250px;
+  background:linear-gradient(45deg,#ffd700,#8b0000);
+  border-bottom-left-radius:200px;
+}
+
+.cert::after{
+  content:"";
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:250px;
+  height:250px;
+  background:linear-gradient(45deg,#8b0000,#ffd700);
+  border-top-right-radius:200px;
 }
 
 /* LOGO */
@@ -102,24 +109,41 @@ button{
   border:5px solid gold;
 }
 
-.cert h1{
+/* MEDAL */
+.badge{
+  position:absolute;
+  top:120px;
+  left:60px;
   font-size:50px;
-  color:#7b0000;
+}
+
+/* TEXT */
+.cert h1{
+  font-size:60px;
+  color:#6b0000;
+  letter-spacing:4px;
+  margin-bottom:0;
 }
 
 .cert h2{
-  color:#7b0000;
+  font-size:28px;
+  color:#6b0000;
 }
 
 .name{
-  font-size:40px;
-  margin:20px 0;
+  font-size:48px;
+  margin:25px 0;
+  font-weight:bold;
+  color:#8b0000;
+  font-family:Georgia;
 }
 
 .desc{
-  width:70%;
+  width:75%;
   margin:auto;
-  color:#444;
+  font-size:18px;
+  line-height:1.6;
+  color:#333;
 }
 
 .sign{
@@ -127,6 +151,8 @@ button{
   bottom:40px;
   left:50%;
   transform:translateX(-50%);
+  font-family:cursive;
+  font-size:22px;
 }
 
 /* ID CARD */
@@ -144,16 +170,6 @@ button{
   border-radius:10px;
   padding:10px;
   position:relative;
-}
-
-/* CUT MARK ID */
-.id-cut{
-  position:absolute;
-  top:5px;
-  left:5px;
-  right:5px;
-  bottom:5px;
-  border:1px dashed red;
 }
 
 .id-header{
@@ -192,28 +208,24 @@ button{
 <div id="certificate">
   <div class="cert">
 
-    <div class="close-btn" onclick="closeCertificate()">❌</div>
-    <div class="cut-border"></div>
+    <div class="no-print" id="certClose" onclick="closeCertificate()">❌</div>
 
-    <div class="top-design"></div>
-
-    <div class="logo">
-      GCIT<br>FOUNDATION
-    </div>
+    <div class="logo">GCIT<br>FOUNDATION</div>
+    <div class="badge">🏅</div>
 
     <h1>CERTIFICATE</h1>
     <h2>OF ACHIEVEMENT</h2>
 
-    <p>This Certificate Is Presented To</p>
+    <p>This Certificate Is Proudly Presented To</p>
 
     <h2 id="c_name" class="name"></h2>
 
     <p class="desc">
-      Successfully completed <b id="c_course"></b>
+      Successfully completed <b id="c_course"></b> and demonstrated excellent performance.
     </p>
 
     <div class="sign">
-      <hr>
+      Signature<br>
       Director
     </div>
 
@@ -224,8 +236,7 @@ button{
 <div id="idcard">
   <div class="id-box">
 
-    <div class="close-btn" onclick="closeID()">❌</div>
-    <div class="id-cut"></div>
+    <div class="no-print" id="idClose" onclick="closeID()">❌</div>
 
     <div class="id-header">GCIT FOUNDATION</div>
 
@@ -277,12 +288,16 @@ function generateCertificate(){
   let cert = document.getElementById("certificate");
   cert.style.display = "block";
 
+  document.getElementById("certClose").classList.add("hide");
+
   html2canvas(cert,{scale:2}).then(canvas=>{
     let img = canvas.toDataURL("image/png");
     certPDF = new jsPDF('landscape','mm','a4');
     certPDF.addImage(img,'PNG',5,5,287,200);
 
     document.getElementById("downloadCertBtn").style.display = "inline-block";
+
+    document.getElementById("certClose").classList.remove("hide");
   });
 }
 
@@ -305,12 +320,16 @@ function generateID(){
     let card = document.getElementById("idcard");
     card.style.display = "block";
 
+    document.getElementById("idClose").classList.add("hide");
+
     html2canvas(card,{scale:2}).then(canvas=>{
       let img = canvas.toDataURL("image/png");
       idPDF = new jsPDF();
       idPDF.addImage(img,'PNG',10,10,90,60);
 
       document.getElementById("downloadIDBtn").style.display = "inline-block";
+
+      document.getElementById("idClose").classList.remove("hide");
     });
   });
 }
