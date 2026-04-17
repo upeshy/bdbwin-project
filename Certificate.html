@@ -48,7 +48,6 @@ button{
   position:relative;
   text-align:center;
   padding:40px;
-  box-sizing:border-box;
 }
 
 .top-design{
@@ -127,7 +126,6 @@ button{
   height:80px;
   border-radius:50%;
 }
-
 </style>
 </head>
 
@@ -140,11 +138,8 @@ button{
 <input type="text" id="id" placeholder="Student ID"><br>
 <input type="file" id="photoInput"><br>
 
-<button onclick="showCertificate()">Preview Certificate</button>
-<button onclick="downloadCertificate()">Download Certificate</button><br>
-
-<button onclick="showID()">Preview ID Card</button>
-<button onclick="downloadID()">Download ID Card</button>
+<button onclick="downloadCertificate()">🎓 Download Certificate</button>
+<button onclick="downloadID()">🪪 Download ID Card</button>
 
 <!-- CERTIFICATE -->
 <div id="certificate">
@@ -171,7 +166,6 @@ button{
 <!-- ID CARD -->
 <div id="idcard">
   <div class="id-box">
-
     <div class="id-header">GCIT FOUNDATION</div>
 
     <img id="photo"><br>
@@ -182,40 +176,56 @@ button{
     <p style="font-weight:bold;">
       Student ID: <span id="i_id"></span>
     </p>
-
   </div>
 </div>
 
 <script>
 const { jsPDF } = window.jspdf;
 
-// CERTIFICATE PREVIEW
-function showCertificate(){
+// CERTIFICATE DOWNLOAD (FIXED)
+function downloadCertificate(){
   let name = document.getElementById("name").value;
   let course = document.getElementById("course").value;
+
+  if(!name || !course){
+    alert("Fill all fields");
+    return;
+  }
 
   document.getElementById("c_name").innerText = name;
   document.getElementById("c_course").innerText = course;
 
-  document.getElementById("certificate").style.display = "block";
+  let cert = document.getElementById("certificate");
+  cert.style.display = "block";
+
+  setTimeout(()=>{
+    html2canvas(cert).then(canvas=>{
+      let pdf = new jsPDF('landscape');
+      pdf.addImage(canvas.toDataURL("image/png"),'PNG',10,10,280,150);
+      pdf.save(name+"_certificate.pdf");
+
+      cert.style.display = "none";
+    });
+  },500);
 }
 
-// DOWNLOAD CERTIFICATE
-function downloadCertificate(){
-  html2canvas(document.getElementById("certificate")).then(canvas=>{
-    let pdf = new jsPDF('landscape');
-    pdf.addImage(canvas.toDataURL("image/png"),'PNG',10,10,280,150);
-    pdf.save("certificate.pdf");
-  });
-}
-
-// ID PREVIEW
-function showID(){
+// ID CARD DOWNLOAD (FIXED)
+function downloadID(){
   let name = document.getElementById("name").value;
   let course = document.getElementById("course").value;
   let id = document.getElementById("id").value;
 
+  if(!name || !course || !id){
+    alert("Fill all fields");
+    return;
+  }
+
   let file = document.getElementById("photoInput").files[0];
+  if(!file){
+    alert("Upload photo");
+    return;
+  }
+
   let reader = new FileReader();
 
   reader.onload = function(){
@@ -224,19 +234,21 @@ function showID(){
     document.getElementById("i_course").innerText = course;
     document.getElementById("i_id").innerText = id;
 
-    document.getElementById("idcard").style.display = "block";
+    let card = document.getElementById("idcard");
+    card.style.display = "block";
+
+    setTimeout(()=>{
+      html2canvas(card).then(canvas=>{
+        let pdf = new jsPDF();
+        pdf.addImage(canvas.toDataURL("image/png"),'PNG',10,10,80,50);
+        pdf.save(name+"_idcard.pdf");
+
+        card.style.display = "none";
+      });
+    },500);
   }
 
-  if(file) reader.readAsDataURL(file);
-}
-
-// DOWNLOAD ID
-function downloadID(){
-  html2canvas(document.getElementById("idcard")).then(canvas=>{
-    let pdf = new jsPDF();
-    pdf.addImage(canvas.toDataURL("image/png"),'PNG',10,10,80,50);
-    pdf.save("idcard.pdf");
-  });
+  reader.readAsDataURL(file);
 }
 </script>
 
