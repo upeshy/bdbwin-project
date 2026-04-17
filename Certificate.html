@@ -3,7 +3,6 @@
 <head>
 <title>GCIT Admin Panel</title>
 
-<!-- LIB -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -34,7 +33,19 @@ button{
   border-radius:6px;
 }
 
-/* ================= CERTIFICATE ================= */
+/* CLOSE BUTTON */
+.close-btn{
+  position:absolute;
+  top:10px;
+  right:15px;
+  font-size:20px;
+  color:red;
+  cursor:pointer;
+  font-weight:bold;
+  z-index:10;
+}
+
+/* CERTIFICATE */
 #certificate{
   width:1000px;
   height:600px;
@@ -44,10 +55,9 @@ button{
 .cert{
   width:100%;
   height:100%;
-  background:linear-gradient(135deg,#fff,#f7f7f7);
+  background:#fff;
   border:12px solid gold;
   position:relative;
-  text-align:center;
   padding:40px;
   box-sizing:border-box;
 }
@@ -60,7 +70,6 @@ button{
   right:10px;
   bottom:10px;
   border:2px dashed red;
-  pointer-events:none;
 }
 
 /* DESIGN */
@@ -74,19 +83,21 @@ button{
   border-bottom-left-radius:100px;
 }
 
+/* LOGO */
 .logo{
   position:absolute;
   top:40px;
   left:40px;
-  width:120px;
-  height:120px;
+  width:130px;
+  height:130px;
   border-radius:50%;
-  background:radial-gradient(circle,#000,#333);
+  background:black;
   color:#ffd700;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:14px;
+  text-align:center;
+  font-size:13px;
   font-weight:bold;
   border:5px solid gold;
 }
@@ -103,7 +114,6 @@ button{
 .name{
   font-size:40px;
   margin:20px 0;
-  font-weight:bold;
 }
 
 .desc{
@@ -119,7 +129,7 @@ button{
   transform:translateX(-50%);
 }
 
-/* ================= ID CARD ================= */
+/* ID CARD */
 #idcard{
   width:320px;
   height:200px;
@@ -182,11 +192,14 @@ button{
 <div id="certificate">
   <div class="cert">
 
+    <div class="close-btn" onclick="closeCertificate()">❌</div>
     <div class="cut-border"></div>
 
     <div class="top-design"></div>
 
-    <div class="logo">GCIT</div>
+    <div class="logo">
+      GCIT<br>FOUNDATION
+    </div>
 
     <h1>CERTIFICATE</h1>
     <h2>OF ACHIEVEMENT</h2>
@@ -211,6 +224,7 @@ button{
 <div id="idcard">
   <div class="id-box">
 
+    <div class="close-btn" onclick="closeID()">❌</div>
     <div class="id-cut"></div>
 
     <div class="id-header">GCIT FOUNDATION</div>
@@ -263,7 +277,7 @@ function generateCertificate(){
   let cert = document.getElementById("certificate");
   cert.style.display = "block";
 
-  html2canvas(cert, {scale:2}).then(canvas=>{
+  html2canvas(cert,{scale:2}).then(canvas=>{
     let img = canvas.toDataURL("image/png");
     certPDF = new jsPDF('landscape','mm','a4');
     certPDF.addImage(img,'PNG',5,5,287,200);
@@ -291,7 +305,7 @@ function generateID(){
     let card = document.getElementById("idcard");
     card.style.display = "block";
 
-    html2canvas(card, {scale:2}).then(canvas=>{
+    html2canvas(card,{scale:2}).then(canvas=>{
       let img = canvas.toDataURL("image/png");
       idPDF = new jsPDF();
       idPDF.addImage(img,'PNG',10,10,90,60);
@@ -304,19 +318,26 @@ function generateID(){
 // DOWNLOAD
 function downloadCert(){
   if(certPDF){
-    let name = nameInput();
-    certPDF.save(name+"_certificate.pdf");
+    certPDF.save(nameInput()+"_certificate.pdf");
   }
 }
 
 function downloadID(){
   if(idPDF){
-    let name = nameInput();
-    idPDF.save(name+"_idcard.pdf");
+    idPDF.save(nameInput()+"_idcard.pdf");
   }
 }
 
-// INPUT HELPERS
+// CLOSE
+function closeCertificate(){
+  document.getElementById("certificate").style.display = "none";
+}
+
+function closeID(){
+  document.getElementById("idcard").style.display = "none";
+}
+
+// INPUT
 function nameInput(){ return document.getElementById("name").value; }
 function courseInput(){ return document.getElementById("course").value; }
 function idInput(){ return document.getElementById("id").value; }
