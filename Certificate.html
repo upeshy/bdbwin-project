@@ -12,9 +12,9 @@ body{
   background:#0b1320;
   color:white;
   text-align:center;
-  padding:20px;
 }
 
+/* INPUT */
 input{
   padding:10px;
   margin:8px;
@@ -24,96 +24,80 @@ input{
 }
 
 button{
-  padding:12px 20px;
-  margin:8px;
-  background:linear-gradient(45deg,#ff9800,#ff5722);
-  border:none;
+  padding:10px;
+  margin:5px;
+  background:#ff5722;
   color:white;
-  cursor:pointer;
+  border:none;
   border-radius:6px;
 }
 
-/* CLOSE BUTTON */
-.close-btn{
+/* POPUP */
+.popup{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.8);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+
+.close{
   position:absolute;
   top:10px;
-  right:10px;
+  right:20px;
   background:red;
   color:white;
   padding:5px 10px;
   cursor:pointer;
-  border-radius:5px;
 }
 
 /* CERTIFICATE */
-#certificate{
-  width:1000px;
-  height:600px;
-  display:none;
-  margin:auto;
-}
-
 .cert{
-  width:100%;
-  height:100%;
+  width:900px;
+  height:550px;
   background:white;
-  border:12px solid gold;
-  position:relative;
+  color:black;
+  border:10px solid gold;
   text-align:center;
-  padding:40px;
-}
-
-.logo{
-  position:absolute;
-  top:30px;
-  left:30px;
-  width:100px;
-  height:100px;
-  border-radius:50%;
-  background:black;
-  color:gold;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:12px;
-  border:4px solid gold;
+  padding:30px;
+  position:relative;
 }
 
 .cert h1{
-  font-size:45px;
   color:#7b0000;
+  font-size:40px;
 }
 
 .name{
   font-size:35px;
-  margin:20px 0;
+  margin:20px;
+  font-weight:bold;
 }
 
 /* ID CARD */
-#idcard{
-  width:320px;
-  display:none;
-  margin:auto;
-}
-
-.id-box{
+.id{
+  width:300px;
+  height:180px;
   background:white;
   color:black;
-  padding:15px;
   border-radius:10px;
-  position:relative;
+  text-align:center;
+  padding:10px;
 }
 
 .id-header{
   background:#ff5722;
   color:white;
   padding:5px;
-  border-radius:5px;
 }
 
 #photo{
-  width:80px;
-  height:80px;
+  width:70px;
+  height:70px;
   border-radius:50%;
 }
 </style>
@@ -123,47 +107,43 @@ button{
 
 <h2>🎓 GCIT Admin Panel</h2>
 
-<input type="text" id="name" placeholder="Student Name"><br>
-<input type="text" id="course" placeholder="Course"><br>
-<input type="text" id="id" placeholder="Student ID"><br>
+<input id="name" placeholder="Name"><br>
+<input id="course" placeholder="Course"><br>
+<input id="id" placeholder="Student ID"><br>
 <input type="file" id="photoInput"><br>
 
-<button onclick="previewCertificate()">👁 Preview Certificate</button>
-<button onclick="downloadCertificate()">⬇ Download Certificate</button><br>
+<button onclick="previewCert()">Preview Certificate</button>
+<button onclick="downloadCert()">Download Certificate</button><br>
 
-<button onclick="previewID()">👁 Preview ID Card</button>
-<button onclick="downloadID()">⬇ Download ID Card</button>
+<button onclick="previewID()">Preview ID</button>
+<button onclick="downloadID()">Download ID</button>
 
-<!-- CERTIFICATE -->
-<div id="certificate">
-  <div class="cert">
-    
-    <div class="close-btn" onclick="closeCertificate()">✖</div>
-
-    <div class="logo">GCIT<br>FOUNDATION</div>
+<!-- CERTIFICATE POPUP -->
+<div id="certPopup" class="popup">
+  <div class="close" onclick="closePopup('certPopup')">X</div>
+  <div id="certBox" class="cert">
 
     <h1>CERTIFICATE</h1>
     <p>This is to certify</p>
 
-    <h2 id="c_name" class="name"></h2>
+    <div id="c_name" class="name"></div>
 
     <p>Completed course</p>
     <h3 id="c_course"></h3>
 
-    <div style="position:absolute; bottom:40px; left:50%; transform:translateX(-50%);">
-      <h3 style="font-family:cursive;">Upesh Kumar</h3>
-      <hr>
-      <span>Director</span>
-    </div>
+    <br><br>
+
+    <p style="font-family:cursive;">Signature</p>
+    <hr style="width:150px;">
+    <p>Director</p>
 
   </div>
 </div>
 
-<!-- ID CARD -->
-<div id="idcard">
-  <div class="id-box">
-
-    <div class="close-btn" onclick="closeID()">✖</div>
+<!-- ID POPUP -->
+<div id="idPopup" class="popup">
+  <div class="close" onclick="closePopup('idPopup')">X</div>
+  <div id="idBox" class="id">
 
     <div class="id-header">GCIT FOUNDATION</div>
 
@@ -172,9 +152,7 @@ button{
     <h3 id="i_name"></h3>
     <p id="i_course"></p>
 
-    <p style="font-weight:bold;">
-      Student ID: <span id="i_id"></span>
-    </p>
+    <b>ID: <span id="i_id"></span></b>
 
   </div>
 </div>
@@ -182,98 +160,74 @@ button{
 <script>
 const { jsPDF } = window.jspdf;
 
-// PREVIEW CERTIFICATE
-function previewCertificate(){
+/* PREVIEW CERT */
+function previewCert(){
   let name = document.getElementById("name").value;
   let course = document.getElementById("course").value;
-
-  if(!name || !course){
-    alert("Fill all fields");
-    return;
-  }
 
   document.getElementById("c_name").innerText = name;
   document.getElementById("c_course").innerText = course;
 
-  document.getElementById("certificate").style.display = "block";
+  document.getElementById("certPopup").style.display="flex";
 }
 
-// DOWNLOAD CERTIFICATE (EXACT SIZE)
-function downloadCertificate(){
-  let cert = document.getElementById("certificate");
-
-  if(cert.style.display === "none"){
-    alert("पहले Preview दिखाओ");
-    return;
-  }
-
-  html2canvas(cert).then(canvas=>{
+/* DOWNLOAD CERT */
+function downloadCert(){
+  html2canvas(document.getElementById("certBox")).then(canvas=>{
     let img = canvas.toDataURL("image/png");
 
     let pdf = new jsPDF({
-      orientation:'landscape',
-      unit:'px',
-      format:[canvas.width, canvas.height]
+      orientation:"landscape",
+      unit:"px",
+      format:[900,550]   // EXACT SIZE → NO CUT
     });
 
-    pdf.addImage(img,'PNG',0,0,canvas.width,canvas.height);
+    pdf.addImage(img,'PNG',0,0,900,550);
     pdf.save("certificate.pdf");
   });
 }
 
-// PREVIEW ID
+/* PREVIEW ID */
 function previewID(){
-  let name = document.getElementById("name").value;
-  let course = document.getElementById("course").value;
-  let id = document.getElementById("id").value;
-
   let file = document.getElementById("photoInput").files[0];
-  if(!file){
-    alert("Upload photo");
-    return;
-  }
 
   let reader = new FileReader();
   reader.onload = function(){
-    document.getElementById("photo").src = reader.result;
-    document.getElementById("i_name").innerText = name;
-    document.getElementById("i_course").innerText = course;
-    document.getElementById("i_id").innerText = id;
 
-    document.getElementById("idcard").style.display = "block";
+    document.getElementById("photo").src = reader.result;
+    document.getElementById("i_name").innerText =
+      document.getElementById("name").value;
+
+    document.getElementById("i_course").innerText =
+      document.getElementById("course").value;
+
+    document.getElementById("i_id").innerText =
+      document.getElementById("id").value;
+
+    document.getElementById("idPopup").style.display="flex";
   }
-  reader.readAsDataURL(file);
+
+  if(file) reader.readAsDataURL(file);
 }
 
-// DOWNLOAD ID (EXACT SIZE)
+/* DOWNLOAD ID */
 function downloadID(){
-  let card = document.getElementById("idcard");
-
-  if(card.style.display === "none"){
-    alert("पहले Preview दिखाओ");
-    return;
-  }
-
-  html2canvas(card).then(canvas=>{
+  html2canvas(document.getElementById("idBox")).then(canvas=>{
     let img = canvas.toDataURL("image/png");
 
     let pdf = new jsPDF({
-      unit:'px',
-      format:[canvas.width, canvas.height]
+      unit:"px",
+      format:[300,180]   // EXACT SIZE → NO CUT
     });
 
-    pdf.addImage(img,'PNG',0,0,canvas.width,canvas.height);
+    pdf.addImage(img,'PNG',0,0,300,180);
     pdf.save("idcard.pdf");
   });
 }
 
-// CLOSE
-function closeCertificate(){
-  document.getElementById("certificate").style.display = "none";
-}
-
-function closeID(){
-  document.getElementById("idcard").style.display = "none";
+/* CLOSE */
+function closePopup(id){
+  document.getElementById(id).style.display="none";
 }
 </script>
 
