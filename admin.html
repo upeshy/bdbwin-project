@@ -69,9 +69,7 @@ img{border-radius:4px;}
     </thead>
     <tbody></tbody>
   </table>
-<iframe id="certFrame" 
-        style="width:100%; height:600px; border:none; display:none;">
-</iframe>
+
   <!-- Settings Section -->
  <div class="settings-section">
   <h2>Website Settings</h2>
@@ -123,18 +121,7 @@ img{border-radius:4px;}
     <button onclick="updateRecord()">Save Changes</button>
   </div>
 </div>
-<button onclick="
-document.getElementById('certFrame').style.display='block';
-document.getElementById('certFrame').src='https://gcitfoundation.org.in/Certificate.html';
-">
-📄 Open Certificate
-</button>
-  <button onclick="
-document.getElementById('certFrame').style.display='none';
-document.getElementById('certFrame').src='';
-">
-❌ Close Certificate
-  </button>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
@@ -178,19 +165,7 @@ window.loginAdmin = function(){
       alert("Login Failed ❌\n"+err.message);
     });
 }
-function toggleCertificate(){
-  let frame = document.getElementById("certFrame");
 
-  if(frame.style.display === "none"){
-    // OPEN
-    frame.style.display = "block";
-    frame.src = "https://gcitfoundation.org.in/Certificate.html";
-  }else{
-    // CLOSE
-    frame.style.display = "none";
-    frame.src = ""; // reset (important)
-  }
-        }
 // --- LOAD STUDENTS ---
 window.loadRecords = function(){
   currentCategory = document.getElementById('categorySelect').value;
