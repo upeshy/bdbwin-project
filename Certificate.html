@@ -399,22 +399,14 @@ function generateCertificate(){
 
   document.getElementById("certClose").classList.add("hide");
 
-  html2canvas(card,{
-  scale:3,
-  useCORS:true
-}).then(canvas=>{
-
-  let img = canvas.toDataURL("image/png");
-
-  // ✅ YAHAN CHANGE KIYA
-  idPDF = new jsPDF('p','mm',[54,85.6]);
-
-  // SIZE bhi adjust karo
-  idPDF.addImage(img,'PNG',0,0,54,85.6);
-
-  document.getElementById("downloadIDBtn").style.display = "inline-block";
-
-});
+    html2canvas(cert,{scale:2}).then(canvas=>{  
+    let img = canvas.toDataURL("image/png");  
+    certPDF = new jsPDF('landscape','mm','a4');  
+    certPDF.addImage(img,'PNG',5,5,287,200);  
+  
+    document.getElementById("downloadCertBtn").style.display = "inline-block";  
+    document.getElementById("certClose").classList.remove("hide");  
+  });
 }
 
 // ID CARD
@@ -455,22 +447,21 @@ function generateID(){
     setTimeout(()=>{
 
       html2canvas(card,{
-        scale:3,
-        useCORS:true
-      }).then(canvas=>{
+  scale:3,
+  useCORS:true
+}).then(canvas=>{
 
-        let img = canvas.toDataURL("image/png");
+  let img = canvas.toDataURL("image/png");
 
-        idPDF = new jsPDF('p','mm','a4');
+  // ✅ YAHAN CHANGE KIYA
+  idPDF = new jsPDF('p','mm',[54,85.6]);
 
-        // PERFECT SIZE (NO CUT)
-        idPDF.addImage(img,'PNG',10,10,90,140);
+  // SIZE bhi adjust karo
+  idPDF.addImage(img,'PNG',0,0,54,85.6);
 
-        document.getElementById("downloadIDBtn").style.display = "inline-block";
+  document.getElementById("downloadIDBtn").style.display = "inline-block";
 
-        document.querySelector(".id-close").classList.remove("hide");
-
-      });
+});
 
     },500); // 👈 DELAY बढ़ा दिया (IMPORTANT)
 
