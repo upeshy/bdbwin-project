@@ -381,8 +381,6 @@ function generateCertificate(){
 // ID CARD
 function generateID(){
   let name = nameInput();
-  let course = courseInput();
-  let id = idInput();
 
   let father = document.getElementById("father").value;
   let mother = document.getElementById("mother").value;
@@ -398,6 +396,7 @@ function generateID(){
 
   loadPhoto(function(){
 
+    // SET DATA
     document.getElementById("i_name").innerText = name;
     document.getElementById("i_father").innerText = father;
     document.getElementById("i_mother").innerText = mother;
@@ -410,17 +409,21 @@ function generateID(){
     let card = document.getElementById("idcard");
     card.style.display = "block";
 
-    document.querySelector(".no-print").classList.add("hide");
+    // ONLY hide ID close button (FIXED)
+    document.querySelector(".id-close").classList.add("hide");
 
-    html2canvas(card,{scale:2}).then(canvas=>{
-      let img = canvas.toDataURL("image/png");
-      idPDF = new jsPDF();
-      idPDF.addImage(img,'PNG',10,10,90,140);
+    setTimeout(()=>{
+      html2canvas(card,{scale:3}).then(canvas=>{
+        let img = canvas.toDataURL("image/png");
 
-      document.getElementById("downloadIDBtn").style.display = "inline-block";
+        idPDF = new jsPDF('p','mm','a4');
+        idPDF.addImage(img,'PNG',10,10,90,140);
 
-      document.querySelector(".no-print").classList.remove("hide");
-    });
+        document.getElementById("downloadIDBtn").style.display = "inline-block";
+
+        document.querySelector(".id-close").classList.remove("hide");
+      });
+    },300);
 
   });
 }
