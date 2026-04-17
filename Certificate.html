@@ -3,7 +3,6 @@
 <head>
 <title>GCIT Admin Panel</title>
 
-<!-- LIB -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -26,7 +25,7 @@ input{
 
 button{
   padding:12px 20px;
-  margin:10px;
+  margin:8px;
   background:linear-gradient(45deg,#ff9800,#ff5722);
   border:none;
   color:white;
@@ -34,7 +33,7 @@ button{
   border-radius:6px;
 }
 
-/* ================= CERTIFICATE ================= */
+/* CERTIFICATE */
 #certificate{
   width:1000px;
   height:600px;
@@ -50,10 +49,8 @@ button{
   text-align:center;
   padding:40px;
   box-sizing:border-box;
-  overflow:hidden;
 }
 
-/* TOP DESIGN */
 .top-design{
   position:absolute;
   top:0;
@@ -64,7 +61,6 @@ button{
   border-bottom-left-radius:100px;
 }
 
-/* LOGO */
 .logo{
   position:absolute;
   top:40px;
@@ -83,21 +79,9 @@ button{
   border:5px solid gold;
 }
 
-/* TEXT */
 .cert h1{
   font-size:50px;
   color:#7b0000;
-  letter-spacing:5px;
-}
-
-.cert h2{
-  color:#7b0000;
-  margin:5px 0;
-}
-
-.sub{
-  margin-top:20px;
-  font-size:18px;
 }
 
 .name{
@@ -106,14 +90,6 @@ button{
   font-weight:bold;
 }
 
-.desc{
-  width:70%;
-  margin:auto;
-  font-size:16px;
-  color:#444;
-}
-
-/* SIGN */
 .sign{
   position:absolute;
   bottom:40px;
@@ -125,7 +101,7 @@ button{
   width:150px;
 }
 
-/* ================= ID CARD ================= */
+/* ID CARD */
 #idcard{
   width:320px;
   height:200px;
@@ -133,21 +109,16 @@ button{
 }
 
 .id-box{
-  width:100%;
-  height:100%;
   background:white;
   color:black;
-  border-radius:10px;
-  text-align:center;
   padding:10px;
-  box-shadow:0 0 10px rgba(0,0,0,0.5);
+  border-radius:10px;
 }
 
 .id-header{
   background:#ff5722;
   color:white;
   padding:5px;
-  font-weight:bold;
   border-radius:5px;
 }
 
@@ -155,14 +126,8 @@ button{
   width:80px;
   height:80px;
   border-radius:50%;
-  margin:10px 0;
 }
 
-.id-footer{
-  margin-top:10px;
-  font-size:12px;
-  color:#555;
-}
 </style>
 </head>
 
@@ -175,37 +140,31 @@ button{
 <input type="text" id="id" placeholder="Student ID"><br>
 <input type="file" id="photoInput"><br>
 
-<button onclick="generateCertificate()">🎓 Generate Certificate</button>
-<button onclick="generateID()">🪪 Generate ID Card</button>
+<button onclick="showCertificate()">Preview Certificate</button>
+<button onclick="downloadCertificate()">Download Certificate</button><br>
+
+<button onclick="showID()">Preview ID Card</button>
+<button onclick="downloadID()">Download ID Card</button>
 
 <!-- CERTIFICATE -->
 <div id="certificate">
   <div class="cert">
-
     <div class="top-design"></div>
-
-    <div class="logo">
-      GCIT<br>FOUNDATION
-    </div>
+    <div class="logo">GCIT<br>FOUNDATION</div>
 
     <h1>CERTIFICATE</h1>
-    <h2>OF ACHIEVEMENT</h2>
-
-    <p class="sub">This Certificate Is Proudly Presented To</p>
+    <p>This is to certify</p>
 
     <h2 id="c_name" class="name"></h2>
 
-    <p class="desc">
-      This certificate is awarded for successfully completing the course
-      <b id="c_course"></b> and demonstrating excellent performance.
-    </p>
+    <p>Completed course</p>
+    <h3 id="c_course"></h3>
 
     <div class="sign">
-      <p>Signature</p>
+      <h3 style="font-family:cursive;">Upesh Kumar</h3>
       <hr>
       <span>Director</span>
     </div>
-
   </div>
 </div>
 
@@ -213,19 +172,16 @@ button{
 <div id="idcard">
   <div class="id-box">
 
-    <div class="id-header">
-      GCIT FOUNDATION
-    </div>
+    <div class="id-header">GCIT FOUNDATION</div>
 
-    <img src="" id="photo">
+    <img id="photo"><br>
 
     <h3 id="i_name"></h3>
     <p id="i_course"></p>
-    <p>ID: <span id="i_id"></span></p>
 
-    <div class="id-footer">
-      Valid Till: 2026
-    </div>
+    <p style="font-weight:bold;">
+      Student ID: <span id="i_id"></span>
+    </p>
 
   </div>
 </div>
@@ -233,72 +189,53 @@ button{
 <script>
 const { jsPDF } = window.jspdf;
 
-// LOAD PHOTO
-function loadPhoto(callback){
-  let file = document.getElementById("photoInput").files[0];
-  if(!file){
-    alert("Upload photo first");
-    return;
-  }
-
-  let reader = new FileReader();
-  reader.onload = function(){
-    document.getElementById("photo").src = reader.result;
-    callback();
-  }
-  reader.readAsDataURL(file);
-}
-
-// CERTIFICATE
-function generateCertificate(){
+// CERTIFICATE PREVIEW
+function showCertificate(){
   let name = document.getElementById("name").value;
   let course = document.getElementById("course").value;
-  let id = document.getElementById("id").value;
-
-  if(!name || !course || !id){
-    alert("Fill all fields");
-    return;
-  }
 
   document.getElementById("c_name").innerText = name;
   document.getElementById("c_course").innerText = course;
 
-  let cert = document.getElementById("certificate");
-  cert.style.display = "block";
+  document.getElementById("certificate").style.display = "block";
+}
 
-  html2canvas(cert).then(canvas=>{
-    let img = canvas.toDataURL("image/png");
+// DOWNLOAD CERTIFICATE
+function downloadCertificate(){
+  html2canvas(document.getElementById("certificate")).then(canvas=>{
     let pdf = new jsPDF('landscape');
-    pdf.addImage(img,'PNG',10,10,280,150);
-    pdf.save(name+"_certificate.pdf");
+    pdf.addImage(canvas.toDataURL("image/png"),'PNG',10,10,280,150);
+    pdf.save("certificate.pdf");
   });
 }
 
-// ID CARD
-function generateID(){
+// ID PREVIEW
+function showID(){
   let name = document.getElementById("name").value;
   let course = document.getElementById("course").value;
   let id = document.getElementById("id").value;
 
-  if(!name || !course || !id){
-    alert("Fill all fields");
-    return;
-  }
+  let file = document.getElementById("photoInput").files[0];
+  let reader = new FileReader();
 
-  loadPhoto(function(){
+  reader.onload = function(){
+    document.getElementById("photo").src = reader.result;
     document.getElementById("i_name").innerText = name;
     document.getElementById("i_course").innerText = course;
     document.getElementById("i_id").innerText = id;
 
-    let card = document.getElementById("idcard");
-    card.style.display = "block";
+    document.getElementById("idcard").style.display = "block";
+  }
 
-    html2canvas(card).then(canvas=>{
-      let img = canvas.toDataURL("image/png");
-      let pdf = new jsPDF();
-      pdf.addImage(img,'PNG',10,10,80,50);
-      pdf.save(name+"_idcard.pdf");
-    });
+  if(file) reader.readAsDataURL(file);
+}
+
+// DOWNLOAD ID
+function downloadID(){
+  html2canvas(document.getElementById("idcard")).then(canvas=>{
+    let pdf = new jsPDF();
+    pdf.addImage(canvas.toDataURL("image/png"),'PNG',10,10,80,50);
+    pdf.save("idcard.pdf");
   });
 }
 </script>
