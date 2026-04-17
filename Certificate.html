@@ -322,7 +322,7 @@ button{
 
     <!-- PHOTO -->
     <div class="photo-wrap">
-      <img id="photo">
+      <img id="photo" src="">
     </div>
 
     <!-- NAME -->
@@ -422,7 +422,7 @@ function generateID(){
 
   loadPhoto(function(){
 
-    // SET DATA
+    // DATA SET
     document.getElementById("i_name").innerText = name;
     document.getElementById("i_father").innerText = father;
     document.getElementById("i_mother").innerText = mother;
@@ -435,21 +435,31 @@ function generateID(){
     let card = document.getElementById("idcard");
     card.style.display = "block";
 
-    // ONLY hide ID close button (FIXED)
+    // CLOSE BUTTON HIDE
     document.querySelector(".id-close").classList.add("hide");
 
+    // 🔥 IMPORTANT DELAY (FIX)
     setTimeout(()=>{
-      html2canvas(card,{scale:3}).then(canvas=>{
+
+      html2canvas(card,{
+        scale:3,
+        useCORS:true
+      }).then(canvas=>{
+
         let img = canvas.toDataURL("image/png");
 
         idPDF = new jsPDF('p','mm','a4');
+
+        // PERFECT SIZE (NO CUT)
         idPDF.addImage(img,'PNG',10,10,90,140);
 
         document.getElementById("downloadIDBtn").style.display = "inline-block";
 
         document.querySelector(".id-close").classList.remove("hide");
+
       });
-    },300);
+
+    },500); // 👈 DELAY बढ़ा दिया (IMPORTANT)
 
   });
 }
