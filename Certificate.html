@@ -17,8 +17,8 @@ body{
 
 input{
   padding:10px;
-  margin:6px;
-  width:260px;
+  margin:8px;
+  width:250px;
   border-radius:6px;
   border:none;
 }
@@ -33,11 +33,20 @@ button{
   border-radius:6px;
 }
 
-/* HIDE BUTTON PDF */
-.no-print{ position:absolute; top:10px; right:15px; cursor:pointer; }
+/* CLOSE BUTTON */
+.no-print{
+  position:absolute;
+  top:10px;
+  right:15px;
+  font-size:20px;
+  color:red;
+  cursor:pointer;
+  font-weight:bold;
+}
+
 .hide{ display:none !important; }
 
-/* ================= CERTIFICATE ================= */
+/* CERTIFICATE */
 #certificate{
   width:1000px;
   height:600px;
@@ -47,15 +56,16 @@ button{
 .cert{
   width:100%;
   height:100%;
-  background:linear-gradient(135deg,#fff,#f8f3e6);
-  border:15px solid gold;
-  padding:60px 40px;
+  background:linear-gradient(135deg,#fff,#f9f3e7);
+  border:15px solid #c9a227;
   position:relative;
+  padding:60px 40px;
   box-sizing:border-box;
+  overflow:hidden;
 }
 
-/* CORNER DESIGN */
-.cert:before{
+/* DESIGN */
+.cert::before{
   content:"";
   position:absolute;
   top:0;
@@ -66,43 +76,68 @@ button{
   border-bottom-left-radius:200px;
 }
 
+.cert::after{
+  content:"";
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:250px;
+  height:250px;
+  background:linear-gradient(45deg,#8b0000,#ffd700);
+  border-top-right-radius:200px;
+}
+
 /* LOGO */
 .logo{
   position:absolute;
   top:40px;
   left:40px;
-  width:120px;
-  height:120px;
+  width:130px;
+  height:130px;
   border-radius:50%;
   background:black;
   color:#ffd700;
   display:flex;
   align-items:center;
   justify-content:center;
+  text-align:center;
+  font-size:13px;
   font-weight:bold;
   border:5px solid gold;
 }
 
 /* TEXT */
 .cert h1{
-  font-size:55px;
+  font-size:60px;
+  color:#6b0000;
+}
+
+.cert h2{
   color:#6b0000;
 }
 
 .name{
   font-size:48px;
-  color:#8b0000;
   margin:20px 0;
-  font-family:Georgia;
+  font-weight:bold;
+  color:#8b0000;
 }
 
 .desc{
   width:75%;
   margin:auto;
+  font-size:18px;
   color:#333;
 }
 
-/* SIGN */
+/* STUDENT ID */
+.student-id{
+  margin-top:10px;
+  font-size:18px;
+  color:#222;
+}
+
+/* SIGNATURE AREA */
 .sign-area{
   position:absolute;
   bottom:40px;
@@ -111,15 +146,19 @@ button{
   justify-content:space-around;
 }
 
+.sign-box{
+  text-align:center;
+}
+
 .sign-box hr{
   width:180px;
   border:1px solid black;
 }
 
-/* ================= ID CARD ================= */
+/* ID CARD */
 #idcard{
   width:320px;
-  height:260px;
+  height:220px;
   display:none;
 }
 
@@ -130,38 +169,26 @@ button{
   color:black;
   border-radius:10px;
   padding:10px;
-  text-align:left;
+  position:relative;
 }
 
 .id-header{
-  background:#4a2ea0;
+  background:#ff5722;
   color:white;
-  text-align:center;
-  padding:6px;
-  font-weight:bold;
+  padding:5px;
 }
 
 #photo{
   width:80px;
   height:80px;
   border-radius:50%;
-  display:block;
-  margin:10px auto;
+  margin:10px 0;
 }
 
-.details{
-  font-size:13px;
-  margin-top:5px;
-}
-
-.details span{
-  display:block;
-  margin:2px 0;
-}
-
+/* ID SIGN */
 .id-sign{
+  margin-top:10px;
   text-align:center;
-  margin-top:5px;
 }
 
 .id-sign hr{
@@ -174,22 +201,18 @@ button{
 
 <h2>🎓 GCIT Admin Panel</h2>
 
-<input id="name" placeholder="Student Name"><br>
-<input id="course" placeholder="Course"><br>
-<input id="id" placeholder="Student ID"><br>
-<input id="father" placeholder="Father Name"><br>
-<input id="dob" placeholder="DOB"><br>
-<input id="mobile" placeholder="Mobile"><br>
-<input id="address" placeholder="Address"><br>
+<input type="text" id="name" placeholder="Student Name"><br>
+<input type="text" id="course" placeholder="Course"><br>
+<input type="text" id="id" placeholder="Student ID"><br>
 <input type="file" id="photoInput"><br>
 
-<button onclick="generateCertificate()">🎓 Certificate</button>
-<button onclick="generateID()">🪪 ID Card</button>
+<button onclick="generateCertificate()">🎓 Generate Certificate</button>
+<button onclick="generateID()">🪪 Generate ID Card</button>
 
 <br>
 
-<button id="downloadCertBtn" style="display:none" onclick="downloadCert()">Download Certificate</button>
-<button id="downloadIDBtn" style="display:none" onclick="downloadID()">Download ID</button>
+<button id="downloadCertBtn" style="display:none" onclick="downloadCert()">⬇ Download Certificate</button>
+<button id="downloadIDBtn" style="display:none" onclick="downloadID()">⬇ Download ID Card</button>
 
 <!-- CERTIFICATE -->
 <div id="certificate">
@@ -197,25 +220,34 @@ button{
 
     <div class="no-print" id="certClose" onclick="closeCertificate()">❌</div>
 
-    <div class="logo">GCIT</div>
+    <div class="logo">GCIT<br>FOUNDATION</div>
 
     <h1>CERTIFICATE</h1>
-    <p>This Certificate is proudly presented to</p>
+    <h2>OF ACHIEVEMENT</h2>
 
-    <div id="c_name" class="name"></div>
+    <p>This Certificate Is Proudly Presented To</p>
+
+    <h2 id="c_name" class="name"></h2>
 
     <p class="desc">
       Successfully completed <b id="c_course"></b>
     </p>
 
-    <p><b>ID: <span id="c_id"></span></b></p>
+    <!-- STUDENT ID -->
+    <div class="student-id">
+      Student ID: <b id="c_id"></b>
+    </div>
 
+    <!-- SIGNATURES -->
     <div class="sign-area">
       <div class="sign-box">
-        <hr>Student Signature
+        <hr>
+        Student Signature
       </div>
+
       <div class="sign-box">
-        <hr>Director Signature
+        <hr>
+        Director Signature
       </div>
     </div>
 
@@ -230,21 +262,16 @@ button{
 
     <div class="id-header">GCIT FOUNDATION</div>
 
-    <img id="photo">
+    <img src="" id="photo">
 
-    <h3 id="i_name" style="text-align:center;"></h3>
+    <h3 id="i_name"></h3>
+    <p id="i_course"></p>
+    <p>ID: <span id="i_id"></span></p>
 
-    <div class="details">
-      <span>Course: <b id="i_course"></b></span>
-      <span>ID: <b id="i_id"></b></span>
-      <span>Father: <b id="i_father"></b></span>
-      <span>DOB: <b id="i_dob"></b></span>
-      <span>Mobile: <b id="i_mobile"></b></span>
-      <span>Address: <b id="i_address"></b></span>
-    </div>
-
+    <!-- SIGN -->
     <div class="id-sign">
-      <hr>Signature
+      <hr>
+      Signature
     </div>
 
   </div>
@@ -253,66 +280,113 @@ button{
 <script>
 const { jsPDF } = window.jspdf;
 
-let certPDF, idPDF;
+let certPDF = null;
+let idPDF = null;
 
 // PHOTO
 function loadPhoto(callback){
   let file = document.getElementById("photoInput").files[0];
+  if(!file){
+    alert("Upload photo first");
+    return;
+  }
+
   let reader = new FileReader();
-  reader.onload = ()=>{
+  reader.onload = function(){
     document.getElementById("photo").src = reader.result;
     callback();
-  };
+  }
   reader.readAsDataURL(file);
 }
 
 // CERTIFICATE
 function generateCertificate(){
-  document.getElementById("c_name").innerText = name.value;
-  document.getElementById("c_course").innerText = course.value;
-  document.getElementById("c_id").innerText = id.value;
+  let name = nameInput();
+  let course = courseInput();
+  let id = idInput();
 
-  certificate.style.display="block";
-  certClose.classList.add("hide");
+  if(!name || !course || !id){
+    alert("Fill all fields");
+    return;
+  }
 
-  html2canvas(certificate).then(canvas=>{
-    certPDF = new jsPDF('landscape');
-    certPDF.addImage(canvas.toDataURL(),"PNG",10,10,280,180);
-    downloadCertBtn.style.display="inline-block";
-    certClose.classList.remove("hide");
+  document.getElementById("c_name").innerText = name;
+  document.getElementById("c_course").innerText = course;
+  document.getElementById("c_id").innerText = id;
+
+  let cert = document.getElementById("certificate");
+  cert.style.display = "block";
+
+  document.getElementById("certClose").classList.add("hide");
+
+  html2canvas(cert,{scale:2}).then(canvas=>{
+    let img = canvas.toDataURL("image/png");
+    certPDF = new jsPDF('landscape','mm','a4');
+    certPDF.addImage(img,'PNG',5,5,287,200);
+
+    document.getElementById("downloadCertBtn").style.display = "inline-block";
+    document.getElementById("certClose").classList.remove("hide");
   });
 }
 
 // ID CARD
 function generateID(){
-  loadPhoto(()=>{
-    i_name.innerText = name.value;
-    i_course.innerText = course.value;
-    i_id.innerText = id.value;
-    i_father.innerText = father.value;
-    i_dob.innerText = dob.value;
-    i_mobile.innerText = mobile.value;
-    i_address.innerText = address.value;
+  let name = nameInput();
+  let course = courseInput();
+  let id = idInput();
 
-    idcard.style.display="block";
-    idClose.classList.add("hide");
+  if(!name || !course || !id){
+    alert("Fill all fields");
+    return;
+  }
 
-    html2canvas(idcard).then(canvas=>{
+  loadPhoto(function(){
+    document.getElementById("i_name").innerText = name;
+    document.getElementById("i_course").innerText = course;
+    document.getElementById("i_id").innerText = id;
+
+    let card = document.getElementById("idcard");
+    card.style.display = "block";
+
+    document.getElementById("idClose").classList.add("hide");
+
+    html2canvas(card,{scale:2}).then(canvas=>{
+      let img = canvas.toDataURL("image/png");
       idPDF = new jsPDF();
-      idPDF.addImage(canvas.toDataURL(),"PNG",10,10,90,70);
-      downloadIDBtn.style.display="inline-block";
-      idClose.classList.remove("hide");
+      idPDF.addImage(img,'PNG',10,10,90,60);
+
+      document.getElementById("downloadIDBtn").style.display = "inline-block";
+      document.getElementById("idClose").classList.remove("hide");
     });
   });
 }
 
 // DOWNLOAD
-function downloadCert(){ certPDF.save(name.value+"_certificate.pdf"); }
-function downloadID(){ idPDF.save(name.value+"_id.pdf"); }
+function downloadCert(){
+  if(certPDF){
+    certPDF.save(nameInput()+"_certificate.pdf");
+  }
+}
+
+function downloadID(){
+  if(idPDF){
+    idPDF.save(nameInput()+"_idcard.pdf");
+  }
+}
 
 // CLOSE
-function closeCertificate(){ certificate.style.display="none"; }
-function closeID(){ idcard.style.display="none"; }
+function closeCertificate(){
+  document.getElementById("certificate").style.display = "none";
+}
+
+function closeID(){
+  document.getElementById("idcard").style.display = "none";
+}
+
+// INPUT
+function nameInput(){ return document.getElementById("name").value; }
+function courseInput(){ return document.getElementById("course").value; }
+function idInput(){ return document.getElementById("id").value; }
 </script>
 
 </body>
