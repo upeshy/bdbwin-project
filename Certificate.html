@@ -170,10 +170,14 @@ button{
   background:#fff;
   box-shadow:0 0 20px rgba(0,0,0,0.5);
   position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
 /* HEADER */
 .id-top{
+  width:100%;
   background:#4b2c91;
   color:white;
   padding:15px;
@@ -184,9 +188,7 @@ button{
 
 /* PHOTO */
 .photo-wrap{
-  display:flex;
-  justify-content:center;
-  margin-top:-40px;
+  margin-top:15px;   /* 👈 FIX (पहले -40px था) */
 }
 
 .photo-wrap img{
@@ -207,18 +209,22 @@ button{
 
 /* DETAILS */
 .details{
+  width:100%;
   padding:10px 20px;
   font-size:14px;
+  color:black;   /* 👈 TEXT BLACK FIX */
 }
 
 .details p{
-  margin:5px 0;
+  margin:6px 0;
+  color:black;   /* 👈 DOUBLE FIX */
 }
 
 /* SIGN */
 .id-sign{
   text-align:center;
   margin-top:10px;
+  color:black;
 }
 
 .id-sign hr{
@@ -228,9 +234,8 @@ button{
 
 /* FOOTER */
 .id-footer{
-  position:absolute;
-  bottom:0;
   width:100%;
+  margin-top:auto;   /* 👈 ALWAYS BOTTOM */
   background:#4b2c91;
   color:white;
   text-align:center;
