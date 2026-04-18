@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>GCIT Certificate</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Allura&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -17,14 +19,14 @@ body{
 
 /* INPUT */
 input{
-  padding:10px;
-  margin:5px;
-  width:260px;
+  padding:8px;
+  margin:4px;
+  width:240px;
 }
 
 button{
-  padding:10px 20px;
-  margin:10px;
+  padding:10px 18px;
+  margin:8px;
   background:orange;
   border:none;
   cursor:pointer;
@@ -33,26 +35,27 @@ button{
 /* CERTIFICATE */
 #certificate{
   width:1000px;
-  height:620px;   /* ✔ कम height */
+  height:560px;   /* ✔ balanced height */
   background:linear-gradient(135deg,#ffffff,#f5faff);
   color:#000;
   display:none;
   margin:auto;
-  padding:12px 12px 50px 12px;  /* ✔ compact padding */
+  padding:15px 20px 40px 20px;
   border:8px solid #5b8db8;
   box-sizing:border-box;
   position:relative;
   font-family:'Times New Roman';
   overflow:hidden;
 }
+
 /* CORNER DESIGN */
 #certificate::before,
 #certificate::after{
   content:"";
   position:absolute;
-  width:160px;
-  height:160px;
-  background:rgba(91,141,184,0.15);
+  width:140px;
+  height:140px;
+  background:rgba(91,141,184,0.12);
 }
 
 #certificate::before{
@@ -67,85 +70,76 @@ button{
   border-top-left-radius:100%;
 }
 
-/* CONTENT ABOVE DESIGN */
-#certificate *{
-  position:relative;
-  z-index:1;
-}
-
+/* TEXT */
 .top{
   text-align:left;
-  font-size:14px;
+  font-size:13px;
 }
 
 .title{
   text-align:center;
-  font-size:48px;
+  font-size:40px;
   color:#a64d00;
   font-weight:bold;
+  margin:5px 0;
 }
 
 .sub{
   text-align:center;
-  font-size:17px;
+  font-size:14px;
+  margin:2px 0;
 }
 
 .center-title{
   text-align:center;
-  font-size:30px;
-  margin:15px;
-  font-family:cursive;
+  font-size:24px;
+  margin:6px;
 }
 
 /* CONTENT */
 .content{
-  font-size:16px;     /* ✔ थोड़ा छोटा */
-  margin-top:10px;
-  line-height:26px;   /* ✔ gap कम */
+  font-size:15px;
+  margin-top:8px;
+  line-height:22px;
 }
 
-/* DOTTED LINE */
+/* LINE */
 .line{
-  border-bottom:2px dotted black;
+  border-bottom:1.5px dotted black;
   display:inline-block;
-  min-width:350px;
-  padding:2px 5px;
+  min-width:150px;
+  padding:1px 3px;
 }
 
-/* SIGNATURE */
+/* SIGN */
 .sign{
   display:flex;
   justify-content:space-between;
-  margin-top:35px;  /* ✔ पहले 50 था, कम किया */
+  margin-top:20px;
 }
 
-.sign div{
-  text-align:center;
-}
-
-/* SIGN IMAGE */
 .signature-text{
-  font-family: 'Great Vibes', cursive;
-  font-size:28px;
-  font-weight:normal;
+  font-family:'Great Vibes', cursive;
+  font-size:26px;
+  transform: rotate(-5deg);
 }
 
 /* FOOTER */
 .footer{
-  margin-top:40px;   /* 👈 नीचे naturally आएगा */
+  margin-top:20px;
   text-align:center;
 }
 
 .footer-line{
-  width:80%;
+  width:75%;
   height:1px;
   background:#000;
   margin:auto;
-  margin-bottom:5px;
+  margin-bottom:4px;
 }
 
 .footer-text{
-  font-size:14px;
+  font-size:12px;
   letter-spacing:1px;
 }
 </style>
@@ -164,8 +158,6 @@ button{
 <input id="to" placeholder="To Date"><br>
 <input id="grade" placeholder="Grade"><br>
 <input id="center" placeholder="Study Center"><br>
-
-<!-- SIGNATURE UPLOAD -->
 
 <button onclick="generateCertificate()">Generate</button>
 <button onclick="downloadPDF()">Download PDF</button>
@@ -186,7 +178,7 @@ Certificate No: <span id="certNo"></span>
 Incorporated under Section 8, Ministry of Corporate Affairs, NITI Aayog, MSME, Govt. of India
 </div>
 
-<div style="display:flex; justify-content:space-between; margin-top:6px;">
+<div style="display:flex; justify-content:space-between; margin-top:5px;">
 <div>CIN: U88900BR2024NPL066984</div>
 <div>ISO 9001:2015 CERTIFIED</div>
 </div>
@@ -214,9 +206,7 @@ From our Study Center
 
 </div>
 
-<!-- SIGN -->
 <div class="sign">
-
 <div>
 <div class="signature-text">Centre Director</div>
 <hr>
@@ -228,17 +218,16 @@ Centre Director
 <hr>
 Managing Director
 </div>
-
 </div>
+
 <div class="footer">
-  <div class="footer-line"></div>
-  <div class="footer-text">
-    MOHIT NIWAS, BLOCK ROAD, BAHADURPUR, LAHERIASARAI, DARBHANGA, 846002
-  </div>
+<div class="footer-line"></div>
+<div class="footer-text">
+MOHIT NIWAS, BLOCK ROAD, BAHADURPUR, LAHERIASARAI, DARBHANGA, 846002
+</div>
 </div>
 
 </div>
-
 
 <script>
 const { jsPDF } = window.jspdf;
@@ -261,22 +250,6 @@ function generateCertificate(){
   });
 
   document.getElementById("certNo").innerText=getSerial();
-
-  // SIGNATURE LOAD
-  let s1=document.getElementById("sign1").files[0];
-  let s2=document.getElementById("sign2").files[0];
-
-  if(s1){
-    let r=new FileReader();
-    r.onload=e=>document.getElementById("sig1").src=e.target.result;
-    r.readAsDataURL(s1);
-  }
-
-  if(s2){
-    let r2=new FileReader();
-    r2.onload=e=>document.getElementById("sig2").src=e.target.result;
-    r2.readAsDataURL(s2);
-  }
 
   let cert=document.getElementById("certificate");
   cert.style.display="block";
