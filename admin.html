@@ -47,6 +47,12 @@ img{border-radius:4px;}
 .pro-btn:active{
   transform:scale(0.95);
 }
+ .btn-group{
+  margin-top:20px;
+  display:flex;
+  gap:15px;   /* 👈 PERFECT GAP */
+  flex-wrap:wrap;
+ }
 </style>
 </head>
 <body>
@@ -126,7 +132,12 @@ img{border-radius:4px;}
   <input type="text" id="teacher2" placeholder="Teacher 2 Name">
   <input type="text" id="teacher3" placeholder="Teacher 3 Name">
 
+  <div class="btn-group">
   <button onclick="updateSettings()">Save All Settings</button>
+
+  <button class="pro-btn" onclick="window.location.href='https://gcitfoundation.org.in/Certificate.html'">
+    📄 Certificate / ID Card Generate
+  </button>
 </div>
 
 <!-- Edit Student Modal -->
@@ -146,9 +157,7 @@ img{border-radius:4px;}
     <button onclick="updateRecord()">Save Changes</button>
   </div>
 </div>
-<button class="pro-btn" onclick="window.location.href='https://gcitfoundation.org.in/Certificate.html'">
-📄 Certificate / ID Card Generate
-</button>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
