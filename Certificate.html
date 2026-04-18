@@ -33,6 +33,90 @@ button{
   border-radius:6px;
 }
 
+/* CERTIFICATE */
+#certificate{
+  width:1123px;
+  height:794px;
+  display:none;
+}
+
+.cert{
+  width:100%;
+  height:100%;
+  background:#fff;
+  border:15px solid #2b6cb0;
+  position:relative;
+  padding:60px;
+  box-sizing:border-box;
+  text-align:center;
+}
+
+/* INNER BORDER */
+.cert::before{
+  content:"";
+  position:absolute;
+  inset:15px;
+  border:3px solid #2b6cb0;
+}
+
+/* HEADER */
+.header h1{
+  font-size:48px;
+  color:#b45309;
+  margin:0;
+}
+
+.sub{
+  color:green;
+  font-size:18px;
+}
+
+.small{
+  font-size:13px;
+  color:#555;
+}
+
+/* TITLE */
+.title{
+  font-size:34px;
+  margin-top:30px;
+  color:#8b0000;
+}
+
+/* TEXT */
+.line{
+  margin-top:20px;
+  font-size:18px;
+  color:#000;
+}
+
+.name{
+  font-size:42px;
+  margin:20px 0;
+  font-weight:bold;
+  color:#000;
+}
+
+.desc{
+  font-size:18px;
+  margin:10px 0;
+  color:#000;
+}
+
+/* SIGN */
+.sign-area{
+  position:absolute;
+  bottom:60px;
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+}
+
+.sign-area hr{
+  width:200px;
+  border:1px solid black;
+}
+
 /* CLOSE BUTTON */
 .no-print{
   position:absolute;
@@ -42,117 +126,6 @@ button{
   color:red;
   cursor:pointer;
   font-weight:bold;
-}
-
-.hide{ display:none !important; }
-
-/* CERTIFICATE */
-#certificate{
-  width:1000px;
-  height:600px;
-  display:none;
-}
-
-.cert{
-  width:100%;
-  height:100%;
-  background:linear-gradient(135deg,#fff,#f9f3e7);
-  border:15px solid #c9a227;
-  position:relative;
-  padding:60px 40px;
-  box-sizing:border-box;
-  overflow:hidden;
-}
-
-/* DESIGN */
-.cert::before{
-  content:"";
-  position:absolute;
-  top:0;
-  right:0;
-  width:250px;
-  height:250px;
-  background:linear-gradient(45deg,#ffd700,#8b0000);
-  border-bottom-left-radius:200px;
-}
-
-.cert::after{
-  content:"";
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:250px;
-  height:250px;
-  background:linear-gradient(45deg,#8b0000,#ffd700);
-  border-top-right-radius:200px;
-}
-
-/* LOGO */
-.logo{
-  position:absolute;
-  top:40px;
-  left:40px;
-  width:130px;
-  height:130px;
-  border-radius:50%;
-  background:black;
-  color:#ffd700;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  font-size:13px;
-  font-weight:bold;
-  border:5px solid gold;
-}
-
-/* TEXT */
-.cert h1{
-  font-size:60px;
-  color:#6b0000;
-}
-
-.cert h2{
-  color:#6b0000;
-}
-
-.name{
-  font-size:48px;
-  margin:20px 0;
-  font-weight:bold;
-  color:#8b0000;
-}
-
-.desc{
-  width:75%;
-  margin:auto;
-  font-size:18px;
-  color:#333;
-}
-
-/* STUDENT ID */
-.student-id{
-  margin-top:10px;
-  font-size:18px;
-  color:#222;
-}
-
-/* SIGNATURE AREA */
-.sign-area{
-  position:absolute;
-  bottom:40px;
-  width:100%;
-  display:flex;
-  justify-content:space-around;
-}
-
-.sign-box{
-  text-align:center;
-}
-
-.sign-box hr{
-  width:180px;
-  border:1px solid black;
 }
 
 /* ID CARD */
@@ -175,7 +148,6 @@ button{
   align-items:center;
 }
 
-/* HEADER */
 .id-top{
   width:100%;
   background:#4b2c91;
@@ -183,12 +155,10 @@ button{
   padding:15px;
   text-align:center;
   font-weight:bold;
-  font-size:14px;
 }
 
-/* PHOTO */
 .photo-wrap{
-  margin-top:15px;   /* 👈 FIX (पहले -40px था) */
+  margin-top:15px;
 }
 
 .photo-wrap img{
@@ -199,28 +169,19 @@ button{
   object-fit:cover;
 }
 
-/* NAME */
 .student-name{
   text-align:center;
   color:#ff9800;
   margin:10px 0;
-  font-size:18px;
 }
 
-/* DETAILS */
 .details{
   width:100%;
   padding:10px 20px;
   font-size:14px;
-  color:black;   /* 👈 TEXT BLACK FIX */
+  color:black;
 }
 
-.details p{
-  margin:6px 0;
-  color:black;   /* 👈 DOUBLE FIX */
-}
-
-/* SIGN */
 .id-sign{
   text-align:center;
   margin-top:10px;
@@ -232,22 +193,13 @@ button{
   border:1px solid black;
 }
 
-/* FOOTER */
 .id-footer{
   width:100%;
-  margin-top:auto;   /* 👈 ALWAYS BOTTOM */
+  margin-top:auto;
   background:#4b2c91;
   color:white;
   text-align:center;
   padding:10px;
-}
-
-/* CLOSE FIX */
-.id-close{
-  position:absolute;
-  top:10px;
-  right:15px;
-  z-index:10;
 }
 </style>
 </head>
@@ -261,12 +213,13 @@ button{
 <input type="text" id="id" placeholder="Student ID"><br>
 <input type="file" id="photoInput"><br>
 
-  <input type="text" id="father" placeholder="Father Name"><br>
+<input type="text" id="father" placeholder="Father Name"><br>
 <input type="text" id="mother" placeholder="Mother Name"><br>
 <input type="text" id="class" placeholder="Class"><br>
 <input type="text" id="dob" placeholder="DOB"><br>
 <input type="text" id="mobile" placeholder="Mobile"><br>
 <input type="text" id="address" placeholder="Address"><br>
+
 <button onclick="generateCertificate()">🎓 Generate Certificate</button>
 <button onclick="generateID()">🪪 Generate ID Card</button>
 
@@ -279,80 +232,67 @@ button{
 <div id="certificate">
   <div class="cert">
 
-    <div class="no-print" id="certClose" onclick="closeCertificate()">❌</div>
+    <div class="no-print" onclick="closeCertificate()">❌</div>
 
-    <div class="logo">GCIT<br>FOUNDATION</div>
+    <div class="header">
+      <h1>GCIT FOUNDATION</h1>
+      <p class="sub">Genius Computer and Information Technologies Foundation</p>
+      <p class="small">Incorporated under Section 8, Govt. of India</p>
+    </div>
 
-    <h1>CERTIFICATE</h1>
-    <h2>OF ACHIEVEMENT</h2>
+    <h2 class="title">Certificate</h2>
 
-    <p>This Certificate Is Proudly Presented To</p>
+    <p class="line">This is to certify that</p>
 
     <h2 id="c_name" class="name"></h2>
 
     <p class="desc">
-      Successfully completed <b id="c_course"></b>
+      has successfully completed the course <b id="c_course"></b>
     </p>
 
-    <!-- STUDENT ID -->
-    <div class="student-id">
-  Student ID: <b id="c_id"></b><br>
-  Serial No: <b id="c_serial"></b><br>
-  Year: <b id="c_year"></b>
-</div>
+    <p class="desc">
+      Student ID: <b id="c_id"></b> |
+      Serial No: <b id="c_serial"></b> |
+      Year: <b id="c_year"></b>
+    </p>
 
-    <!-- SIGNATURES -->
     <div class="sign-area">
-      <div class="sign-box">
-        <hr>
-        Student Signature
+      <div>
+        <hr>Centre Director
       </div>
-
-      <div class="sign-box">
-        <hr>
-        Director Signature
+      <div>
+        <hr>Managing Director
       </div>
     </div>
 
   </div>
 </div>
 
+<!-- ID CARD -->
 <div id="idcard">
   <div class="id-box">
 
-    <div class="no-print id-close" onclick="closeID()">❌</div>
+    <div class="no-print" onclick="closeID()">❌</div>
 
-    <!-- HEADER -->
-    <div class="id-top">
-      GCIT FOUNDATION
-    </div>
+    <div class="id-top">GCIT FOUNDATION</div>
 
-    <!-- PHOTO -->
     <div class="photo-wrap">
-      <img id="photo" src="">
+      <img id="photo">
     </div>
 
-    <!-- NAME -->
     <h3 id="i_name" class="student-name"></h3>
 
-    <!-- DETAILS -->
     <div class="details">
       <p><b>Father:</b> <span id="i_father"></span></p>
-      <p><b>Mother:</b> <span id="i_mother"></span></p>
-      <p><b>Class:</b> <span id="i_class"></span></p>
-      <p><b>DOB:</b> <span id="i_dob"></span></p>
       <p><b>Mobile:</b> <span id="i_mobile"></span></p>
       <p><b>Address:</b> <span id="i_address"></span></p>
       <p><b>Serial:</b> <span id="i_serial"></span></p>
     </div>
 
-    <!-- SIGN -->
     <div class="id-sign">
-      <hr>
-      Signature
+      <hr>Signature
     </div>
 
-    <!-- FOOTER -->
     <div class="id-footer">
       ☎ <span id="i_mobile2"></span>
     </div>
@@ -362,39 +302,17 @@ button{
 
 <script>
 const { jsPDF } = window.jspdf;
+let certPDF, idPDF;
 
-let certPDF = null;
-let idPDF = null;
-
-// PHOTO
-function loadPhoto(callback){
-  let file = document.getElementById("photoInput").files[0];
-  if(!file){
-    alert("Upload photo first");
-    return;
-  }
-
-  let reader = new FileReader();
-  reader.onload = function(){
-    document.getElementById("photo").src = reader.result;
-    callback();
-  }
-  reader.readAsDataURL(file);
-}
-// SERIAL FUNCTION
+// SERIAL
 function getNextSerial(type){
-  let key = type + "_serial";
+  let key = type+"_serial";
   let current = localStorage.getItem(key);
-
-  if(!current){
-    current = 1;
-  }else{
-    current = parseInt(current) + 1;
-  }
-
-  localStorage.setItem(key, current);
-  return current.toString().padStart(4,'0'); // 0001 format
+  current = current ? parseInt(current)+1 : 1;
+  localStorage.setItem(key,current);
+  return current.toString().padStart(4,'0');
 }
+
 // CERTIFICATE
 function generateCertificate(){
   let name = nameInput();
@@ -409,110 +327,70 @@ function generateCertificate(){
   document.getElementById("c_name").innerText = name;
   document.getElementById("c_course").innerText = course;
   document.getElementById("c_id").innerText = id;
-  let serial = getNextSerial("cert");
-let year = new Date().getFullYear();
-
-document.getElementById("c_serial").innerText = serial;
-document.getElementById("c_year").innerText = year;
+  document.getElementById("c_serial").innerText = getNextSerial("cert");
+  document.getElementById("c_year").innerText = new Date().getFullYear();
 
   let cert = document.getElementById("certificate");
   cert.style.display = "block";
 
-  document.getElementById("certClose").classList.add("hide");
+  html2canvas(cert,{scale:3}).then(canvas=>{
+    let img = canvas.toDataURL("image/png");
+    certPDF = new jsPDF('landscape','mm','a4');
+    certPDF.addImage(img,'PNG',0,0,297,210);
 
-    html2canvas(cert,{scale:2}).then(canvas=>{  
-    let img = canvas.toDataURL("image/png");  
-    certPDF = new jsPDF('landscape','mm','a4');  
-    certPDF.addImage(img,'PNG',5,5,287,200);  
-  
-    document.getElementById("downloadCertBtn").style.display = "inline-block";  
-    document.getElementById("certClose").classList.remove("hide");  
+    document.getElementById("downloadCertBtn").style.display="inline-block";
   });
 }
 
 // ID CARD
 function generateID(){
   let name = nameInput();
-
   let father = document.getElementById("father").value;
-  let mother = document.getElementById("mother").value;
-  let cls = document.getElementById("class").value;
-  let dob = document.getElementById("dob").value;
   let mobile = document.getElementById("mobile").value;
   let address = document.getElementById("address").value;
-  
 
   if(!name || !father || !mobile){
-    alert("Fill all fields");
+    alert("Fill required fields");
     return;
   }
 
-  loadPhoto(function(){
+  let file = document.getElementById("photoInput").files[0];
+  if(!file){ alert("Upload photo"); return; }
 
-    // DATA SET
+  let reader = new FileReader();
+  reader.onload = function(){
+    document.getElementById("photo").src = reader.result;
+
     document.getElementById("i_name").innerText = name;
     document.getElementById("i_father").innerText = father;
-    document.getElementById("i_mother").innerText = mother;
-    document.getElementById("i_class").innerText = cls;
-    document.getElementById("i_dob").innerText = dob;
     document.getElementById("i_mobile").innerText = mobile;
     document.getElementById("i_mobile2").innerText = mobile;
     document.getElementById("i_address").innerText = address;
-    let idSerial = getNextSerial("id");
-    document.getElementById("i_serial").innerText = idSerial;
+    document.getElementById("i_serial").innerText = getNextSerial("id");
 
     let card = document.getElementById("idcard");
-    card.style.display = "block";
+    card.style.display="block";
 
-    // CLOSE BUTTON HIDE
-    document.querySelector(".id-close").classList.add("hide");
-
-    // 🔥 IMPORTANT DELAY (FIX)
     setTimeout(()=>{
+      html2canvas(card,{scale:3}).then(canvas=>{
+        let img = canvas.toDataURL("image/png");
+        idPDF = new jsPDF('p','mm',[54,85.6]);
+        idPDF.addImage(img,'PNG',0,0,54,85.6);
 
-      html2canvas(card,{
-  scale:3,
-  useCORS:true
-}).then(canvas=>{
-
-  let img = canvas.toDataURL("image/png");
-
-  // ✅ YAHAN CHANGE KIYA
-  idPDF = new jsPDF('p','mm',[54,85.6]);
-
-  // SIZE bhi adjust karo
-  idPDF.addImage(img,'PNG',0,0,54,85.6);
-
-  document.getElementById("downloadIDBtn").style.display = "inline-block";
-
-});
-
-    },500); // 👈 DELAY बढ़ा दिया (IMPORTANT)
-
-  });
+        document.getElementById("downloadIDBtn").style.display="inline-block";
+      });
+    },500);
+  }
+  reader.readAsDataURL(file);
 }
 
 // DOWNLOAD
-function downloadCert(){
-  if(certPDF){
-    certPDF.save(nameInput()+"_certificate.pdf");
-  }
-}
-
-function downloadID(){
-  if(idPDF){
-    idPDF.save(nameInput()+"_idcard.pdf");
-  }
-}
+function downloadCert(){ certPDF.save(nameInput()+"_certificate.pdf"); }
+function downloadID(){ idPDF.save(nameInput()+"_idcard.pdf"); }
 
 // CLOSE
-function closeCertificate(){
-  document.getElementById("certificate").style.display = "none";
-}
-
-function closeID(){
-  document.getElementById("idcard").style.display = "none";
-}
+function closeCertificate(){ document.getElementById("certificate").style.display="none"; }
+function closeID(){ document.getElementById("idcard").style.display="none"; }
 
 // INPUT
 function nameInput(){ return document.getElementById("name").value; }
