@@ -201,6 +201,92 @@ button{
   text-align:center;
   padding:10px;
 }
+  .cert-new{
+  width:100%;
+  height:100%;
+  background:#fff;
+  border:15px solid #5a8dbd;
+  padding:40px;
+  box-sizing:border-box;
+  text-align:center;
+  position:relative;
+  font-family:Georgia, serif;
+}
+
+/* INNER BORDER */
+.cert-new::before{
+  content:"";
+  position:absolute;
+  inset:10px;
+  border:2px solid #5a8dbd;
+}
+
+/* TOP */
+.top{
+  text-align:left;
+  font-size:14px;
+}
+
+/* TITLE */
+.main-title{
+  font-size:48px;
+  color:#b45309;
+  margin:10px 0;
+}
+
+.hindi{
+  font-size:14px;
+}
+
+.sub-title{
+  font-size:22px;
+  color:green;
+}
+
+.gov{
+  font-size:14px;
+}
+
+/* CERTIFICATE TITLE */
+.cert-title{
+  font-size:32px;
+  margin-top:20px;
+  font-family:cursive;
+  color:#6b4226;
+}
+
+/* TEXT */
+.line{
+  margin-top:20px;
+  font-size:18px;
+}
+
+/* FILL LINES */
+.fill-line{
+  border-bottom:1px dotted black;
+  margin:15px 0;
+  padding:5px;
+  font-size:16px;
+}
+
+.fill-line span{
+  font-weight:bold;
+  padding:0 10px;
+}
+
+/* SIGN */
+.sign-area{
+  position:absolute;
+  bottom:40px;
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+}
+
+.sign-area hr{
+  width:180px;
+  border:1px solid black;
+  }
 </style>
 </head>
 
@@ -230,32 +316,56 @@ button{
 
 <!-- CERTIFICATE -->
 <div id="certificate">
-  <div class="cert">
+  <div class="cert-new">
 
     <div class="no-print" onclick="closeCertificate()">❌</div>
 
-    <div class="header">
-      <h1>GCIT FOUNDATION</h1>
-      <p class="sub">Genius Computer and Information Technologies Foundation</p>
-      <p class="small">Incorporated under Section 8, Govt. of India</p>
+    <!-- TOP -->
+    <div class="top">
+      <span>Certificate No: <b id="c_serial"></b></span>
     </div>
 
-    <h2 class="title">Certificate</h2>
+    <h1 class="main-title">GCIT FOUNDATION</h1>
 
-    <p class="line">This is to certify that</p>
-
-    <h2 id="c_name" class="name"></h2>
-
-    <p class="desc">
-      has successfully completed the course <b id="c_course"></b>
+    <p class="hindi">
+      भारत सरकार अधिनियम 2013 एवं अंतरराष्ट्रीय मानकीकरण द्वारा पंजीकृत
     </p>
 
-    <p class="desc">
-      Student ID: <b id="c_id"></b> |
-      Serial No: <b id="c_serial"></b> |
-      Year: <b id="c_year"></b>
+    <h2 class="sub-title">
+      Genius Computer and Information Technologies Foundation
+    </h2>
+
+    <p class="gov">
+      Incorporated under Section 8, Ministry of Corporate Affairs, Govt. of India
     </p>
 
+    <!-- TITLE -->
+    <h2 class="cert-title">Certificate</h2>
+
+    <p class="line">This is to certified that</p>
+
+    <!-- NAME -->
+    <p class="fill-line">
+      Mr./Miss/Mrs <span id="c_name"></span> S/o D/o ____________
+    </p>
+
+    <p class="fill-line">
+      has successfully completed the Course <span id="c_course"></span>
+    </p>
+
+    <p class="fill-line">
+      Registration Number __________ Date of Birth __________
+    </p>
+
+    <p class="fill-line">
+      from __________ to __________ and achieved the grade __________
+    </p>
+
+    <p class="fill-line">
+      from our Study Center
+    </p>
+
+    <!-- FOOT -->
     <div class="sign-area">
       <div>
         <hr>Centre Director
