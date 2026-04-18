@@ -124,8 +124,10 @@ button{
 }
 
 /* SIGN IMAGE */
-.sig-img{
-  height:50px;
+.signature-text{
+  font-family: 'Great Vibes', cursive;
+  font-size:28px;
+  font-weight:normal;
 }
 
 /* FOOTER */
@@ -164,8 +166,6 @@ button{
 <input id="center" placeholder="Study Center"><br>
 
 <!-- SIGNATURE UPLOAD -->
-<input type="file" id="sign1"><br>
-<input type="file" id="sign2"><br>
 
 <button onclick="generateCertificate()">Generate</button>
 <button onclick="downloadPDF()">Download PDF</button>
@@ -218,19 +218,18 @@ From our Study Center
 <div class="sign">
 
 <div>
-<img id="sig1" class="sig-img">
+<div class="signature-text">Centre Director</div>
 <hr>
 Centre Director
 </div>
 
 <div>
-<img id="sig2" class="sig-img">
+<div class="signature-text">Managing Director</div>
 <hr>
 Managing Director
 </div>
 
 </div>
-
 <div class="footer">
   <div class="footer-line"></div>
   <div class="footer-text">
