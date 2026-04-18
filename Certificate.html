@@ -296,8 +296,10 @@ button{
 
     <!-- STUDENT ID -->
     <div class="student-id">
-      Student ID: <b id="c_id"></b>
-    </div>
+  Student ID: <b id="c_id"></b><br>
+  Serial No: <b id="c_serial"></b><br>
+  Year: <b id="c_year"></b>
+</div>
 
     <!-- SIGNATURES -->
     <div class="sign-area">
@@ -341,6 +343,7 @@ button{
       <p><b>DOB:</b> <span id="i_dob"></span></p>
       <p><b>Mobile:</b> <span id="i_mobile"></span></p>
       <p><b>Address:</b> <span id="i_address"></span></p>
+      <p><b>Serial:</b> <span id="i_serial"></span></p>
     </div>
 
     <!-- SIGN -->
@@ -378,7 +381,20 @@ function loadPhoto(callback){
   }
   reader.readAsDataURL(file);
 }
+// SERIAL FUNCTION
+function getNextSerial(type){
+  let key = type + "_serial";
+  let current = localStorage.getItem(key);
 
+  if(!current){
+    current = 1;
+  }else{
+    current = parseInt(current) + 1;
+  }
+
+  localStorage.setItem(key, current);
+  return current.toString().padStart(4,'0'); // 0001 format
+}
 // CERTIFICATE
 function generateCertificate(){
   let name = nameInput();
@@ -393,6 +409,11 @@ function generateCertificate(){
   document.getElementById("c_name").innerText = name;
   document.getElementById("c_course").innerText = course;
   document.getElementById("c_id").innerText = id;
+  let serial = getNextSerial("cert");
+let year = new Date().getFullYear();
+
+document.getElementById("c_serial").innerText = serial;
+document.getElementById("c_year").innerText = year;
 
   let cert = document.getElementById("certificate");
   cert.style.display = "block";
@@ -419,6 +440,7 @@ function generateID(){
   let dob = document.getElementById("dob").value;
   let mobile = document.getElementById("mobile").value;
   let address = document.getElementById("address").value;
+  
 
   if(!name || !father || !mobile){
     alert("Fill all fields");
@@ -436,6 +458,8 @@ function generateID(){
     document.getElementById("i_mobile").innerText = mobile;
     document.getElementById("i_mobile2").innerText = mobile;
     document.getElementById("i_address").innerText = address;
+    let idSerial = getNextSerial("id");
+    document.getElementById("i_serial").innerText = idSerial;
 
     let card = document.getElementById("idcard");
     card.style.display = "block";
