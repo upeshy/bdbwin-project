@@ -22,6 +22,31 @@ input,select,textarea{padding:6px;margin:4px 0;border-radius:4px;border:none;bac
 label{font-weight:bold;}
 img{border-radius:4px;}
 .settings-section{margin-top:40px;}
+ .pro-btn{
+  padding:14px 25px;
+  font-size:16px;
+  font-weight:bold;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  color:white;
+
+  background:linear-gradient(45deg,#ff9800,#ff5722);
+  box-shadow:0 4px 15px rgba(0,0,0,0.4);
+
+  transition:0.3s;
+}
+
+/* Hover effect */
+.pro-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 6px 20px rgba(0,0,0,0.6);
+}
+
+/* Click effect */
+.pro-btn:active{
+  transform:scale(0.95);
+}
 </style>
 </head>
 <body>
@@ -121,8 +146,8 @@ img{border-radius:4px;}
     <button onclick="updateRecord()">Save Changes</button>
   </div>
 </div>
-<button onclick="window.location.href='https://gcitfoundation.org.in/Certificate.html'">
-📄 Open Certificate,ID Card Generate
+<button class="pro-btn" onclick="window.location.href='https://gcitfoundation.org.in/Certificate.html'">
+📄 Certificate / ID Card Generate
 </button>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
