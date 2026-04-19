@@ -112,16 +112,24 @@ button{
 }
 
 /* SIGN */
+<!-- Replace old .sign CSS with this -->
 .sign{
   display:flex;
   justify-content:space-between;
+  align-items:flex-end;
   margin-top:20px;
+  padding-right:130px; /* QR ke liye jagah */
+}
+
+.sign div{
+  width:220px;
+  text-align:center;
 }
 
 .signature-text{
   font-family:'Great Vibes', cursive;
   font-size:26px;
-  transform: rotate(-5deg);
+  transform:rotate(-5deg);
 }
 
 /* FOOTER */
@@ -217,15 +225,17 @@ From our Study Center
 <img src="l4.jpg" style="height:65px;">
 
 </div>
-  <div id="qrcode" style="
+  <!-- Replace old QR div with this -->
+<div id="qrcode" style="
 position:absolute;
-right:20px;
-bottom:20px;
-width:90px;
-height:90px;
+right:18px;
+bottom:18px;
+width:95px;
+height:95px;
 background:#fff;
 padding:4px;
 border:1px solid #000;
+z-index:5;
 "></div>
 <div class="sign">
 <div>
