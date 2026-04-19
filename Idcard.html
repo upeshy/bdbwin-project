@@ -173,7 +173,6 @@ button{
 const { jsPDF } = window.jspdf;
 let pdf;
 
-// GENERATE
 function generate(){
 
   let file = document.getElementById("photoInput").files[0];
@@ -183,49 +182,50 @@ function generate(){
   }
 
   let reader = new FileReader();
+
   reader.onload = function(){
+
     document.getElementById("photo").src = reader.result;
-  }
-  reader.readAsDataURL(file);
 
-  // Fill Data
-  i_name.innerText = name.value;
-  i_father.innerText = father.value;
-  i_id.innerText = idno.value;
-  i_class.innerText = class.value;
-  i_dob.innerText = dob.value;
-  i_contact.innerText = contact.value;
-  i_address.innerText = address.value;
+    // Fill Data
+    document.getElementById("i_name").innerText = document.getElementById("name").value;
+    document.getElementById("i_father").innerText = document.getElementById("father").value;
+    document.getElementById("i_id").innerText = document.getElementById("idno").value;
+    document.getElementById("i_class").innerText = document.getElementById("class").value;
+    document.getElementById("i_dob").innerText = document.getElementById("dob").value;
+    document.getElementById("i_contact").innerText = document.getElementById("contact").value;
+    document.getElementById("i_address").innerText = document.getElementById("address").value;
 
-  // QR DATA
-  let qrData = `
-Name: ${name.value}
-ID: ${idno.value}
-Phone: ${contact.value}
+    // QR Data
+    let qrData = `
+Name: ${document.getElementById("name").value}
+ID: ${document.getElementById("idno").value}
+Phone: ${document.getElementById("contact").value}
 `;
 
-  // Clear old QR
-  document.getElementById("qrcode").innerHTML = "";
+    document.getElementById("qrcode").innerHTML = "";
 
-  // Generate QR
-  new QRCode(document.getElementById("qrcode"), {
-    text: qrData,
-    width: 80,
-    height: 80
-  });
-
-  let card = document.getElementById("card");
-  card.style.display = "block";
-
-  // Convert to PDF
-  setTimeout(()=>{
-    html2canvas(card,{scale:3}).then(canvas=>{
-      let img = canvas.toDataURL("image/png");
-
-      pdf = new jsPDF('l','mm',[85.6,54]);
-      pdf.addImage(img,'PNG',0,0,85.6,54);
+    new QRCode(document.getElementById("qrcode"), {
+      text: qrData,
+      width: 80,
+      height: 80
     });
-  },500);
+
+    let card = document.getElementById("card");
+    card.style.display = "block";
+
+    setTimeout(()=>{
+      html2canvas(card,{scale:3}).then(canvas=>{
+        let img = canvas.toDataURL("image/png");
+
+        pdf = new jsPDF('l','mm',[85.6,54]);
+        pdf.addImage(img,'PNG',0,0,85.6,54);
+      });
+    },500);
+
+  };
+
+  reader.readAsDataURL(file);
 }
 
 // DOWNLOAD
