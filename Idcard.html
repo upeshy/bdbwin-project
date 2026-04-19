@@ -200,8 +200,8 @@ button{
 <input id="name" placeholder="Name"><br>
 <input id="father" placeholder="Father Name"><br>
 <input id="idno" placeholder="ID Number"><br>
-<input id="class" placeholder="Class"><br>
-<input id="dob" placeholder="DOB"><br>
+<input id="class" placeholder="Class-Course"><br>
+
 <input id="contact" placeholder="Contact"><br>
 <input id="address" placeholder="Address"><br>
 <input type="file" id="photoInput"><br>
@@ -214,7 +214,7 @@ button{
 
   <div class="top">
     GCIT FOUNDATION
-    <div class="sub">This is an authorised branch of GCIT FOUNDATION</div>
+    
   </div>
 
   <div class="strip">STUDENT ID CARD</div>
@@ -246,17 +246,12 @@ button{
 
   <div class="row">
     <span class="icon">🎓</span>
-    <span class="label">Class</span>
+    <span class="label">Class-Course</span>
     <span class="colon">:</span>
     <span class="value" id="i_class"></span>
   </div>
 
-  <div class="row">
-    <span class="icon">📅</span>
-    <span class="label">DOB</span>
-    <span class="colon">:</span>
-    <span class="value" id="i_dob"></span>
-  </div>
+  
 
   <div class="row">
     <span class="icon">📞</span>
@@ -323,7 +318,7 @@ function generate(){
     document.getElementById("i_father").innerText = document.getElementById("father").value;
     document.getElementById("i_id").innerText = document.getElementById("idno").value;
     document.getElementById("i_class").innerText = document.getElementById("class").value;
-    document.getElementById("i_dob").innerText = document.getElementById("dob").value;
+    
     document.getElementById("i_contact").innerText = document.getElementById("contact").value;
     document.getElementById("i_address").innerText = document.getElementById("address").value;
 
