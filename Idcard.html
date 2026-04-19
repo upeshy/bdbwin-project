@@ -138,6 +138,58 @@ button{
   margin:10px;
   cursor:pointer;
 }
+  /* LEFT CONTAINER */
+.left{
+  width:60%;
+  padding-left:15px;
+}
+
+/* EACH ROW */
+.row{
+  display:flex;
+  align-items:center;
+  margin:8px 0;
+}
+
+/* ICON */
+.icon{
+  width:30px;
+  font-size:18px;
+  text-align:center;
+}
+
+/* LABEL (Name, Father etc.) */
+.label{
+  width:150px;              /* 👈 fixed = perfect alignment */
+  font-size:17px;
+  font-weight:bold;
+  color:#1e3c72;            /* blue like ID card */
+}
+
+/* COLON */
+.colon{
+  width:15px;
+  text-align:center;
+  font-size:17px;
+}
+
+/* VALUE */
+.value{
+  flex:1;
+  font-size:18px;
+  font-weight:500;
+  color:black;
+  word-break:break-word;   /* 👈 long text handle */
+}
+
+/* ADDRESS SPECIAL HANDLING */
+.row:last-child{
+  align-items:flex-start;   /* 👈 address top align */
+}
+
+.row:last-child .value{
+  line-height:1.3;
+}
 </style>
 </head>
 
@@ -170,14 +222,58 @@ button{
   <div class="content">
 
     <div class="left">
-      <p><b>Name:</b> <span id="i_name"></span></p>
-      <p><b>Father's Name:</b> <span id="i_father"></span></p>
-      <p><b>ID No:</b> <span id="i_id"></span></p>
-      <p><b>Class:</b> <span id="i_class"></span></p>
-      <p><b>DOB:</b> <span id="i_dob"></span></p>
-      <p><b>Contact:</b> <span id="i_contact"></span></p>
-      <p><b>Address:</b> <span id="i_address"></span></p>
-    </div>
+
+  <div class="row">
+    <span class="icon">👤</span>
+    <span class="label">Name</span>
+    <span class="colon">:</span>
+    <span class="value" id="i_name"></span>
+  </div>
+
+  <div class="row">
+    <span class="icon">👤</span>
+    <span class="label">Father's Name</span>
+    <span class="colon">:</span>
+    <span class="value" id="i_father"></span>
+  </div>
+
+  <div class="row">
+    <span class="icon">🆔</span>
+    <span class="label">ID No.</span>
+    <span class="colon">:</span>
+    <span class="value" id="i_id"></span>
+  </div>
+
+  <div class="row">
+    <span class="icon">🎓</span>
+    <span class="label">Class</span>
+    <span class="colon">:</span>
+    <span class="value" id="i_class"></span>
+  </div>
+
+  <div class="row">
+    <span class="icon">📅</span>
+    <span class="label">DOB</span>
+    <span class="colon">:</span>
+    <span class="value" id="i_dob"></span>
+  </div>
+
+  <div class="row">
+    <span class="icon">📞</span>
+    <span class="label">Contact</span>
+    <span class="colon">:</span>
+    <span class="value" id="i_contact"></span>
+  </div>
+
+  <!-- ✅ NEW ADDRESS ROW -->
+  <div class="row">
+    <span class="icon">🏠</span>
+    <span class="label">Address</span>
+    <span class="colon">:</span>
+    <span class="value" id="i_address"></span>
+  </div>
+
+
 
     <div class="right">
       <img id="photo" class="photo">
