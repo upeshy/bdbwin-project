@@ -5,115 +5,114 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
 body{
   font-family:Arial;
   background:#0b1320;
-  color:white;
   text-align:center;
-  padding:20px;
-}
-
-input{
-  padding:10px;
-  margin:8px;
-  width:250px;
-  border-radius:6px;
-  border:none;
-}
-
-button{
-  padding:12px 20px;
-  margin:10px;
-  background:linear-gradient(45deg,#ff9800,#ff5722);
-  border:none;
   color:white;
-  cursor:pointer;
-  border-radius:6px;
 }
 
-/* ID CARD */
-#idcard{
-  width:350px;
-  height:520px;
-  display:none;
+/* CARD */
+#card{
+  width:800px;
+  height:300px;
+  background:white;
   margin:auto;
-}
-
-.id-box{
-  width:100%;
-  height:100%;
-  border-radius:20px;
+  margin-top:20px;
+  border-radius:15px;
   overflow:hidden;
-  background:#fff;
-  box-shadow:0 0 20px rgba(0,0,0,0.5);
+  display:none;
   position:relative;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
 }
 
 /* HEADER */
-.id-top{
-  width:100%;
-  background:#4b2c91;
+.top{
+  background:#1e3c72;
   color:white;
-  padding:15px;
+  padding:10px;
+  font-weight:bold;
+  font-size:22px;
+}
+.sub{
+  font-size:12px;
+}
+
+/* RED STRIP */
+.strip{
+  background:#e53935;
+  color:white;
   text-align:center;
+  padding:5px;
   font-weight:bold;
 }
 
-/* PHOTO */
-.photo-wrap{
-  margin-top:15px;
+/* CONTENT */
+.content{
+  display:flex;
+  padding:15px;
 }
 
-.photo-wrap img{
-  width:110px;
-  height:110px;
+/* LEFT DETAILS */
+.left{
+  width:60%;
+  text-align:left;
+}
+.left p{
+  margin:6px 0;
+  color:black;
+}
+
+/* RIGHT */
+.right{
+  width:40%;
+  text-align:center;
+}
+
+/* PHOTO */
+.photo{
+  width:130px;
+  height:130px;
   border-radius:50%;
-  border:5px solid orange;
+  border:5px solid #1e3c72;
   object-fit:cover;
 }
 
-/* NAME */
-.student-name{
-  color:#ff9800;
-  margin:10px 0;
-}
-
-/* DETAILS */
-.details{
-  width:100%;
-  padding:10px 20px;
-  font-size:14px;
-  color:black;
-}
-
-.details p{
-  margin:6px 0;
+/* QR */
+#qrcode{
+  margin-top:10px;
 }
 
 /* SIGN */
-.id-sign{
-  text-align:center;
-  margin-top:10px;
+.sign{
+  margin-top:5px;
   color:black;
-}
-
-.id-sign hr{
-  width:120px;
+  font-style:italic;
 }
 
 /* FOOTER */
-.id-footer{
+.footer{
+  position:absolute;
+  bottom:0;
   width:100%;
-  margin-top:auto;
-  background:#4b2c91;
+  background:#1e3c72;
   color:white;
-  text-align:center;
+  padding:8px;
+  font-size:14px;
+}
+
+/* FORM */
+input{
   padding:10px;
+  margin:5px;
+  width:250px;
+}
+button{
+  padding:10px 15px;
+  margin:10px;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -122,65 +121,61 @@ button{
 
 <h2>🪪 ID Card Generator</h2>
 
-<input type="text" id="name" placeholder="Student Name"><br>
+<input id="name" placeholder="Name"><br>
+<input id="father" placeholder="Father Name"><br>
+<input id="idno" placeholder="ID Number"><br>
+<input id="class" placeholder="Class"><br>
+<input id="dob" placeholder="DOB"><br>
+<input id="contact" placeholder="Contact"><br>
+<input id="address" placeholder="Address"><br>
 <input type="file" id="photoInput"><br>
-<input type="text" id="father" placeholder="Father Name"><br>
-<input type="text" id="mother" placeholder="Mother Name"><br>
-<input type="text" id="class" placeholder="Class"><br>
-<input type="text" id="dob" placeholder="DOB"><br>
-<input type="text" id="mobile" placeholder="Mobile"><br>
-<input type="text" id="address" placeholder="Address"><br>
 
-<button onclick="generateID()">Generate ID</button>
-<button id="downloadIDBtn" style="display:none" onclick="downloadID()">Download</button>
+<button onclick="generate()">Generate</button>
+<button onclick="download()">Download</button>
 
-<!-- ID CARD -->
-<div id="idcard">
-  <div class="id-box">
+<!-- CARD -->
+<div id="card">
 
-    <div class="id-top">GCIT FOUNDATION</div>
+  <div class="top">
+    YOUR ACADEMY
+    <div class="sub">This is an authorised branch of GCIT FOUNDATION</div>
+  </div>
 
-    <div class="photo-wrap">
-      <img id="photo" src="">
-    </div>
+  <div class="strip">STUDENT ID CARD</div>
 
-    <h3 id="i_name" class="student-name"></h3>
+  <div class="content">
 
-    <div class="details">
-      <p><b>Father:</b> <span id="i_father"></span></p>
-      <p><b>Mother:</b> <span id="i_mother"></span></p>
+    <div class="left">
+      <p><b>Name:</b> <span id="i_name"></span></p>
+      <p><b>Father's Name:</b> <span id="i_father"></span></p>
+      <p><b>ID No:</b> <span id="i_id"></span></p>
       <p><b>Class:</b> <span id="i_class"></span></p>
       <p><b>DOB:</b> <span id="i_dob"></span></p>
-      <p><b>Mobile:</b> <span id="i_mobile"></span></p>
+      <p><b>Contact:</b> <span id="i_contact"></span></p>
       <p><b>Address:</b> <span id="i_address"></span></p>
-      <p><b>Serial:</b> <span id="i_serial"></span></p>
     </div>
 
-    <div class="id-sign">
-      <hr> Signature
-    </div>
-
-    <div class="id-footer">
-      ☎ <span id="i_mobile2"></span>
+    <div class="right">
+      <img id="photo" class="photo">
+      <div id="qrcode"></div>
+      <div class="sign">Sumit Sharma<br>(Director)</div>
     </div>
 
   </div>
+
+  <div class="footer">
+    Address: 123 Main Street | Phone: 01234567890
+  </div>
+
 </div>
 
 <script>
 const { jsPDF } = window.jspdf;
-let idPDF = null;
+let pdf;
 
-// SERIAL
-function getNextSerial(){
-  let current = localStorage.getItem("id_serial");
-  current = current ? parseInt(current)+1 : 1;
-  localStorage.setItem("id_serial", current);
-  return current.toString().padStart(4,'0');
-}
+// GENERATE
+function generate(){
 
-// PHOTO LOAD
-function loadPhoto(callback){
   let file = document.getElementById("photoInput").files[0];
   if(!file){
     alert("Upload photo first");
@@ -190,56 +185,55 @@ function loadPhoto(callback){
   let reader = new FileReader();
   reader.onload = function(){
     document.getElementById("photo").src = reader.result;
-    callback();
   }
   reader.readAsDataURL(file);
-}
 
-// GENERATE
-function generateID(){
-  let name = document.getElementById("name").value;
-  let father = document.getElementById("father").value;
-  let mobile = document.getElementById("mobile").value;
+  // Fill Data
+  i_name.innerText = name.value;
+  i_father.innerText = father.value;
+  i_id.innerText = idno.value;
+  i_class.innerText = class.value;
+  i_dob.innerText = dob.value;
+  i_contact.innerText = contact.value;
+  i_address.innerText = address.value;
 
-  if(!name || !father || !mobile){
-    alert("Fill required fields");
-    return;
-  }
+  // QR DATA
+  let qrData = `
+Name: ${name.value}
+ID: ${idno.value}
+Phone: ${contact.value}
+`;
 
-  loadPhoto(function(){
+  // Clear old QR
+  document.getElementById("qrcode").innerHTML = "";
 
-    document.getElementById("i_name").innerText = name;
-    document.getElementById("i_father").innerText = father;
-    document.getElementById("i_mother").innerText = document.getElementById("mother").value;
-    document.getElementById("i_class").innerText = document.getElementById("class").value;
-    document.getElementById("i_dob").innerText = document.getElementById("dob").value;
-    document.getElementById("i_mobile").innerText = mobile;
-    document.getElementById("i_mobile2").innerText = mobile;
-    document.getElementById("i_address").innerText = document.getElementById("address").value;
-
-    document.getElementById("i_serial").innerText = getNextSerial();
-
-    let card = document.getElementById("idcard");
-    card.style.display = "block";
-
-    setTimeout(()=>{
-      html2canvas(card,{scale:3}).then(canvas=>{
-        let img = canvas.toDataURL("image/png");
-
-        idPDF = new jsPDF('p','mm',[54,85.6]);
-        idPDF.addImage(img,'PNG',0,0,54,85.6);
-
-        document.getElementById("downloadIDBtn").style.display = "inline-block";
-      });
-    },500);
-
+  // Generate QR
+  new QRCode(document.getElementById("qrcode"), {
+    text: qrData,
+    width: 80,
+    height: 80
   });
+
+  let card = document.getElementById("card");
+  card.style.display = "block";
+
+  // Convert to PDF
+  setTimeout(()=>{
+    html2canvas(card,{scale:3}).then(canvas=>{
+      let img = canvas.toDataURL("image/png");
+
+      pdf = new jsPDF('l','mm',[85.6,54]);
+      pdf.addImage(img,'PNG',0,0,85.6,54);
+    });
+  },500);
 }
 
 // DOWNLOAD
-function downloadID(){
-  if(idPDF){
-    idPDF.save("idcard.pdf");
+function download(){
+  if(pdf){
+    pdf.save("ID-Card.pdf");
+  }else{
+    alert("Generate ID first");
   }
 }
 </script>
