@@ -125,9 +125,9 @@ button{
 <input type="text" id="name" placeholder="Name"><br>
 <input type="file" id="photoInput"><br>
 <input type="text" id="father" placeholder="Father Name"><br>
-<input type="text" id="mother" placeholder="Mother Name"><br>
-<input type="text" id="subject" placeholder="Subject"><br>
-<input type="text" id="dob" placeholder="DOB"><br>
+<input type="text" id="designation" placeholder="Designation"><br>
+<input type="text" id="join" placeholder="joining date"><br>
+<input type="text" id="validation" placeholder="validation date"><br>
 <input type="text" id="mobile" placeholder="Mobile"><br>
 <input type="text" id="address" placeholder="Address"><br>
 
@@ -148,9 +148,9 @@ button{
 
     <div class="details">
       <p><b>Father:</b> <span id="i_father"></span></p>
-      <p><b>Mother:</b> <span id="i_mother"></span></p>
-      <p><b>Subject:</b> <span id="i_subject"></span></p>
-      <p><b>DOB:</b> <span id="i_dob"></span></p>
+      <p><b>Designation:</b> <span id="i_designation"></span></p>
+      <p><b>Joining date:</b> <span id="i_join"></span></p>
+      <p><b>validation date:</b> <span id="i_validation"></span></p>
       <p><b>Mobile:</b> <span id="i_mobile"></span></p>
       <p><b>Address:</b> <span id="i_address"></span></p>
       <p><b>Serial:</b> <span id="i_serial"></span></p>
@@ -210,9 +210,9 @@ function generateID(){
 
     document.getElementById("i_name").innerText = name;
     document.getElementById("i_father").innerText = father;
-    document.getElementById("i_mother").innerText = document.getElementById("mother").value;
-    document.getElementById("i_subject").innerText = document.getElementById("subject").value;
-    document.getElementById("i_dob").innerText = document.getElementById("dob").value;
+    document.getElementById("i_designation").innerText = document.getElementById("designation").value;
+    document.getElementById("i_join").innerText = document.getElementById("join").value;
+    document.getElementById("i_validation").innerText = document.getElementById("validation").value;
     document.getElementById("i_mobile").innerText = mobile;
     document.getElementById("i_mobile2").innerText = mobile;
     document.getElementById("i_address").innerText = document.getElementById("address").value;
