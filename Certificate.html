@@ -104,18 +104,25 @@ button{
 }  
   
 /* SIGN */  
-.sign{  
-  display:flex;  
-  justify-content:space-between; 
-  gap:220px
-  margin-top:20px;  
-}  
-  
-.signature-text{  
-  font-family:'Great Vibes', cursive;  
-  font-size:26px;  
-  transform: rotate(-5deg);  
-}  
+<!-- Replace only .sign CSS -->
+
+.sign{
+  display:flex;
+  justify-content:space-between; /* dono kone par rahenge */
+  margin-top:20px;
+  padding:0 130px 0 0; /* right side QR ke liye jagah */
+}
+
+.sign div{
+  width:220px;
+  text-align:center;
+}
+
+.signature-text{
+  font-family:'Great Vibes', cursive;
+  font-size:26px;
+  transform:rotate(-5deg);
+}
   
 /* FOOTER */  
 .footer{  
