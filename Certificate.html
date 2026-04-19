@@ -107,15 +107,31 @@ button{
 <!-- Replace only .sign CSS -->
 
 .sign{
-display:flex;
-justify-content:space-between;
-margin-top:20px;
+  position:absolute;
+  left:20px;
+  right:130px;   /* QR code ke liye right side space chhod diya */
+  bottom:95px;   /* footer aur QR se upar */
+  
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+}
+
+.sign > div{
+  width:220px;
+  text-align:center;
 }
 
 .signature-text{
-font-family:'Great Vibes', cursive;
-font-size:26px;
-transform: rotate(-5deg);
+  font-family:'Great Vibes', cursive;
+  font-size:26px;
+  transform:rotate(-5deg);
+}
+
+.sign hr{
+  margin:4px 0;
+  border:0;
+  border-top:1px solid #000;
 }
   
 /* FOOTER */  
