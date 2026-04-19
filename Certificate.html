@@ -239,44 +239,40 @@ function getSerial(){
 }  
   
 function generateCertificate(){  
-  
- let ids=["name","father","course","reg","dob","from","to","grade","center"];  
-  
- ids.forEach(id=>{  
-   document.getElementById("c_"+id).innerText =  
-   document.getElementById(id).value;  
- });  
-  
- let certNo=getSerial();  
- document.getElementById("certNo").innerText=certNo;  
-  
- let qrData =  
-`Institute Name: GCIT FOUNDATION  
-Student Name: ${name.value}  
-Date of Birth: ${dob.value}  
-Course: ${course.value}  
-Certificate No: ${certNo}  
-Registration No: ${reg.value}  
-Course Duration: ${from.value} to ${to.value}  
-Study Center: ${center.value}`;  
-  
- document.getElementById("qrcode").innerHTML="";  
-  
- new QRCode(document.getElementById("qrcode"),{  
-   text: qrData,  
-   width:100,  
-   height:100  
- });  
-  
- let cert=document.getElementById("certificate");  
- cert.style.display="block";  
-  
- html2canvas(cert,{scale:3}).then(canvas=>{
-  let img=canvas.toDataURL("image/png");
-  pdf=new jsPDF('landscape','mm','a4');
-  pdf.addImage(img,'PNG',5,5,287,200);
-});
-}  
+
+  let ids=["name","father","course","reg","dob","from","to","grade","center"];  
+
+  ids.forEach(id=>{  
+    document.getElementById("c_"+id).innerText =  
+    document.getElementById(id).value;  
+  });  
+
+  let certNo = getSerial();  
+  document.getElementById("certNo").innerText = certNo;  
+
+  // ✅ SHORT QR DATA (FIXED)
+  let qrData = `N:${document.getElementById("name").value}|C:${document.getElementById("course").value}|CN:${certNo}`;
+
+  // Clear old QR
+  document.getElementById("qrcode").innerHTML = "";
+
+  // ✅ Bigger & clear QR
+  new QRCode(document.getElementById("qrcode"),{  
+    text: qrData,  
+    width:120,  
+    height:120  
+  });  
+
+  let cert = document.getElementById("certificate");  
+  cert.style.display = "block";  
+
+  // ✅ High quality PDF
+  html2canvas(cert,{scale:3}).then(canvas=>{
+    let img = canvas.toDataURL("image/png");
+    pdf = new jsPDF('landscape','mm','a4');
+    pdf.addImage(img,'PNG',5,5,287,200);
+  });
+}
   
 function downloadPDF(){  
   if(pdf){  
