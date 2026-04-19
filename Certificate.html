@@ -104,40 +104,38 @@ button{
 }  
   
 /* SIGN */  
-<!-- Replace only .sign CSS -->
-
-/* SIGN */
-/* SIGN - ek left side, ek right side */
-
 .sign{
   position:absolute;
   left:25px;
-  right:140px;   /* QR code ke liye space */
+  right:140px;
   bottom:70px;
-
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
 }
 
-.sign > div{
+.sig-box{
   width:220px;
   text-align:center;
+  position:absolute;
+}
+
+.left-sign{
+  left:0;
+}
+
+.right-sign{
+  right:0;
 }
 
 .signature-text{
   font-family:'Great Vibes', cursive;
   font-size:26px;
-  line-height:1;
   transform:rotate(-5deg);
 }
 
-.sign hr{
+.sig-box hr{
   margin:4px 0;
   border:0;
   border-top:1px solid #000;
 }
-  
 /* FOOTER */  
 .footer{
   position:absolute;
