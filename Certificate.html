@@ -1,169 +1,140 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>GCIT Certificate</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<style>
-body{
-  background:#0b1320;
-  color:white;
-  text-align:center;
-  font-family:Arial;
-}
-
-/* INPUT */
-input{
-  padding:8px;
-  margin:4px;
-  width:240px;
-}
-
-button{
-  padding:10px 18px;
-  margin:8px;
-  background:orange;
-  border:none;
-  cursor:pointer;
-}
-
-/* CERTIFICATE */
-#certificate{
-  width:1000px;
-  height:600px;   /* ✔ balanced height */
-  background:linear-gradient(135deg,#ffffff,#f5faff);
-  color:#000;
-  display:none;
-  margin:auto;
-  padding:15px 20px 40px 20px;
-  border:8px solid #5b8db8;
-  box-sizing:border-box;
-  position:relative;
-  font-family:'Times New Roman';
-  overflow:hidden;
-}
-
-/* CORNER DESIGN */
-#certificate::before,
-#certificate::after{
-  content:"";
-  position:absolute;
-  width:140px;
-  height:140px;
-  background:rgba(91,141,184,0.12);
-}
-
-#certificate::before{
-  top:0;
-  left:0;
-  border-bottom-right-radius:100%;
-}
-
-#certificate::after{
-  bottom:0;
-  right:0;
-  border-top-left-radius:100%;
-}
-
-/* TEXT */
-.top{
-  text-align:left;
-  font-size:13px;
-}
-
-.title{
-  text-align:center;
-  font-size:40px;
-  color:#a64d00;
-  font-weight:bold;
-  margin:5px 0;
-}
-
-.sub{
-  text-align:center;
-  font-size:14px;
-  margin:2px 0;
-}
-
-.center-title{
-  text-align:center;
-  font-size:24px;
-  margin:6px;
-}
-
-/* CONTENT */
-.content{
-  font-size:20px;
-  margin-top:15px;
-  line-height:35px;
-}
-
-/* LINE */
-.line{
-  border-bottom:1.5px dotted black;
-  display:inline-block;
-  min-width:150px;
-  padding:1px 3px;
-}
-
-/* SIGN */
-<!-- Replace only .sign CSS -->
-
-.sign{
-  display:flex;
-  justify-content:space-between;
-  margin-top:20px;
-  width:100%;
-}
-
-.sign > div:first-child{
-  width:220px;
-  text-align:center;
-}
-
-.sign > div:last-child{
-  width:220px;
-  text-align:center;
-  margin-right:130px; /* sirf right signature ko QR se door karega */
-}
-
-.signature-text{
-  font-family:'Great Vibes', cursive;
-  font-size:26px;
-  transform:rotate(-5deg);
-}
-
-/* FOOTER */
-.footer{
-  margin-top:20px;
-  text-align:center;
-}
-
-.footer-line{
-  width:75%;
-  height:1px;
-  background:#000;
-  margin:auto;
-  margin-bottom:4px;
-}
-
-.footer-text{
-  font-size:12px;
-  letter-spacing:1px;
-}
-</style>
-</head>
-
-<body>
-
-<h2>🎓 GCIT Certificate Generator</h2>
-
-<input id="name" placeholder="Student Name"><br>
+<!DOCTYPE html>  <html>  
+<head>  
+<meta charset="UTF-8">  
+<title>GCIT Certificate</title>  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>  <style>  
+body{  
+  background:#0b1320;  
+  color:white;  
+  text-align:center;  
+  font-family:Arial;  
+}  
+  
+/* INPUT */  
+input{  
+  padding:8px;  
+  margin:4px;  
+  width:240px;  
+}  
+  
+button{  
+  padding:10px 18px;  
+  margin:8px;  
+  background:orange;  
+  border:none;  
+  cursor:pointer;  
+}  
+  
+/* CERTIFICATE */  
+#certificate{  
+  width:1000px;  
+  height:600px;   /* ✔ balanced height */  
+  background:linear-gradient(135deg,#ffffff,#f5faff);  
+  color:#000;  
+  display:none;  
+  margin:auto;  
+  padding:15px 20px 40px 20px;  
+  border:8px solid #5b8db8;  
+  box-sizing:border-box;  
+  position:relative;  
+  font-family:'Times New Roman';  
+  overflow:hidden;  
+}  
+  
+/* CORNER DESIGN */  
+#certificate::before,  
+#certificate::after{  
+  content:"";  
+  position:absolute;  
+  width:140px;  
+  height:140px;  
+  background:rgba(91,141,184,0.12);  
+}  
+  
+#certificate::before{  
+  top:0;  
+  left:0;  
+  border-bottom-right-radius:100%;  
+}  
+  
+#certificate::after{  
+  bottom:0;  
+  right:0;  
+  border-top-left-radius:100%;  
+}  
+  
+/* TEXT */  
+.top{  
+  text-align:left;  
+  font-size:13px;  
+}  
+  
+.title{  
+  text-align:center;  
+  font-size:40px;  
+  color:#a64d00;  
+  font-weight:bold;  
+  margin:5px 0;  
+}  
+  
+.sub{  
+  text-align:center;  
+  font-size:14px;  
+  margin:2px 0;  
+}  
+  
+.center-title{  
+  text-align:center;  
+  font-size:24px;  
+  margin:6px;  
+}  
+  
+/* CONTENT */  
+.content{  
+  font-size:20px;  
+  margin-top:15px;  
+  line-height:35px;  
+}  
+  
+/* LINE */  
+.line{  
+  border-bottom:1.5px dotted black;  
+  display:inline-block;  
+  min-width:150px;  
+  padding:1px 3px;  
+}  
+  
+/* SIGN */  
+.sign{  
+  display:flex;  
+  justify-content:space-between;  
+  margin-top:20px;  
+}  
+  
+.signature-text{  
+  font-family:'Great Vibes', cursive;  
+  font-size:26px;  
+  transform: rotate(-5deg);  
+}  
+  
+/* FOOTER */  
+.footer{  
+  margin-top:20px;  
+  text-align:center;  
+}  
+  
+.footer-line{  
+  width:75%;  
+  height:1px;  
+  background:#000;  
+  margin:auto;  
+  margin-bottom:4px;  
+}  
+  
+.footer-text{  
+  font-size:12px;  
+  letter-spacing:1px;  
+}  
+</style>  </head>  <body>  <h2>🎓 GCIT Certificate Generator</h2>  <input id="name" placeholder="Student Name"><br>
 <input id="father" placeholder="Father Name"><br>
 <input id="course" placeholder="Course"><br>
 <input id="reg" placeholder="Registration No"><br>
@@ -176,155 +147,116 @@ button{
 <button onclick="generateCertificate()">Generate</button>
 <button onclick="downloadPDF()">Download PDF</button>
 
-<!-- CERTIFICATE -->
-<div id="certificate">
-
-<div class="top">
-Certificate No: <span id="certNo"></span>
-</div>
-
-<div class="title">GCIT FOUNDATION</div>
-
-<div class="sub">भारत सरकार अधिनियम 2013 एवं अंतरराष्ट्रीय मानकीकरण द्वारा पंजीकृत</div>
-<div class="sub">Genius Computer and Information Technologies Foundation</div>
-
-<div class="sub">
-Incorporated under Section 8, Ministry of Corporate Affairs, NITI Aayog, MSME, Govt. of India
-</div>
-
-<div style="display:flex; justify-content:space-between; margin-top:5px;">
-<div>CIN: U88900BR2024NPL066984</div>
-<div>ISO 9001:2015 CERTIFIED</div>
-</div>
-
-<div class="center-title">Certificate</div>
-
-<div class="content">
-
-This is to certify that 
-Mr./Miss./Mrs <span id="c_name" class="line"></span>, 
-S/o, D/o <span id="c_father" class="line"></span>, 
-has successfully completed the course 
+<!-- CERTIFICATE -->  <div id="certificate">  <div class="top">  
+Certificate No: <span id="certNo"></span>  
+</div>  <div class="title">GCIT FOUNDATION</div>  <div class="sub">भारत सरकार अधिनियम 2013 एवं अंतरराष्ट्रीय मानकीकरण द्वारा पंजीकृत</div>  
+<div class="sub">Genius Computer and Information Technologies Foundation</div>  <div class="sub">  
+Incorporated under Section 8, Ministry of Corporate Affairs, NITI Aayog, MSME, Govt. of India  
+</div>  <div style="display:flex; justify-content:space-between; margin-top:5px;">  
+<div>CIN: U88900BR2024NPL066984</div>  
+<div>ISO 9001:2015 CERTIFIED</div>  
+</div>  <div class="center-title">Certificate</div>  <div class="content">  This is to certify that
+Mr./Miss./Mrs <span id="c_name" class="line"></span>,
+S/o, D/o <span id="c_father" class="line"></span>,
+has successfully completed the course
 <span id="c_course" class="line"></span>.
 
-Registration No <span id="c_reg" class="line"></span>, 
+Registration No <span id="c_reg" class="line"></span>,
 Date of Birth <span id="c_dob" class="line"></span>.
 
-The course duration was from 
-<span id="c_from" class="line"></span> to 
-<span id="c_to" class="line"></span>, 
+The course duration was from
+<span id="c_from" class="line"></span> to
+<span id="c_to" class="line"></span>,
 and achieved grade <span id="c_grade" class="line"></span>.
 
-From our Study Center 
+From our Study Center
 <span id="c_center" class="line"></span>.
 
-</div>
-<!-- LOGOS -->
-<div style="display:flex; justify-content:space-around; align-items:center; margin-top:15px;">
-
-<img src="l1.png" style="height:65px;">
-
-<img src="l2.jpg" style="height:65px;">
-
-<img src="l3.png" style="height:65px;">
-
-<img src="l4.jpg" style="height:65px;">
-
-</div>
-  <!-- Replace old QR div with this -->
-<div id="qrcode" style="
-position:absolute;
-right:18px;
-bottom:18px;
-width:95px;
-height:95px;
-background:#fff;
-padding:4px;
-border:1px solid #000;
-z-index:5;
-"></div>
-<div class="sign">
-<div>
-<div class="signature-text">Centre Director</div>
-<hr>
-Centre Director
-</div>
-
-<div>
-<div class="signature-text">Managing Director</div>
-<hr>
-Managing Director
-</div>
-</div>
-
-<div class="footer">
-<div class="footer-line"></div>
-<div class="footer-text">
-MOHIT NIWAS, BLOCK ROAD, BAHADURPUR, LAHERIASARAI, DARBHANGA, 846002
-</div>
-</div>
-
-</div>
-
-<script>
-const { jsPDF } = window.jspdf;
-let pdf=null;
-
-function getSerial(){
-  let s=localStorage.getItem("cert");
-  if(!s){s=1;}else{s=parseInt(s)+1;}
-  localStorage.setItem("cert",s);
-  return "GCIT-"+s.toString().padStart(4,'0');
-}
-
-function generateCertificate(){
-
- let ids=["name","father","course","reg","dob","from","to","grade","center"];
-
- ids.forEach(id=>{
-   document.getElementById("c_"+id).innerText =
-   document.getElementById(id).value;
- });
-
- let certNo=getSerial();
- document.getElementById("certNo").innerText=certNo;
-
- let qrData =
-`Institute Name: GCIT FOUNDATION
-Student Name: ${name.value}
-Date of Birth: ${dob.value}
-Course: ${course.value}
-Certificate No: ${certNo}
-Registration No: ${reg.value}
-Course Duration: ${from.value} to ${to.value}
-Study Center: ${center.value}`;
-
- document.getElementById("qrcode").innerHTML="";
-
- new QRCode(document.getElementById("qrcode"),{
-   text: qrData,
-   width:80,
-   height:80
- });
-
- let cert=document.getElementById("certificate");
- cert.style.display="block";
-
- html2canvas(cert,{scale:2}).then(canvas=>{
-   let img=canvas.toDataURL("image/png");
-   pdf=new jsPDF('landscape','mm','a4');
-   pdf.addImage(img,'PNG',5,5,287,200);
- });
-}
-
-function downloadPDF(){
-  if(pdf){
-    pdf.save("GCIT_Certificate.pdf");
-  }else{
-    alert("Generate first");
-  }
-}
-</script>
-
-</body>
-</html>
+</div>  
+<!-- LOGOS -->  
+<div style="display:flex; justify-content:space-around; align-items:center; margin-top:15px;">  <img src="l1.png" style="height:65px;">  <img src="l2.jpg" style="height:65px;">  <img src="l3.png" style="height:65px;">  <img src="l4.jpg" style="height:65px;">  </div>  
+  <div id="qrcode" style="  
+position:absolute;  
+right:20px;  
+bottom:20px;  
+width:90px;  
+height:90px;  
+background:#fff;  
+padding:4px;  
+border:1px solid #000;  
+"></div>  
+<div class="sign">  
+<div>  
+<div class="signature-text">Centre Director</div>  
+<hr>  
+Centre Director  
+</div>  <div>  
+<div class="signature-text">Managing Director</div>  
+<hr>  
+Managing Director  
+</div>  
+</div>  <div class="footer">  
+<div class="footer-line"></div>  
+<div class="footer-text">  
+MOHIT NIWAS, BLOCK ROAD, BAHADURPUR, LAHERIASARAI, DARBHANGA, 846002  
+</div>  
+</div>  </div>  <script>  
+const { jsPDF } = window.jspdf;  
+let pdf=null;  
+  
+function getSerial(){  
+  let s=localStorage.getItem("cert");  
+  if(!s){s=1;}else{s=parseInt(s)+1;}  
+  localStorage.setItem("cert",s);  
+  return "GCIT-"+s.toString().padStart(4,'0');  
+}  
+  
+function generateCertificate(){  
+  
+ let ids=["name","father","course","reg","dob","from","to","grade","center"];  
+  
+ ids.forEach(id=>{  
+   document.getElementById("c_"+id).innerText =  
+   document.getElementById(id).value;  
+ });  
+  
+ let certNo=getSerial();  
+ document.getElementById("certNo").innerText=certNo;  
+  
+ let qrData =  
+`Institute Name: GCIT FOUNDATION  
+Student Name: ${name.value}  
+Date of Birth: ${dob.value}  
+Course: ${course.value}  
+Certificate No: ${certNo}  
+Registration No: ${reg.value}  
+Course Duration: ${from.value} to ${to.value}  
+Study Center: ${center.value}`;  
+  
+ document.getElementById("qrcode").innerHTML="";  
+  
+ new QRCode(document.getElementById("qrcode"),{  
+   text: qrData,  
+   width:80,  
+   height:80  
+ });  
+  
+ let cert=document.getElementById("certificate");  
+ cert.style.display="block";  
+  
+ html2canvas(cert,{scale:2}).then(canvas=>{  
+   let img=canvas.toDataURL("image/png");  
+   pdf=new jsPDF('landscape','mm','a4');  
+   pdf.addImage(img,'PNG',5,5,287,200);  
+ });  
+}  
+  
+function downloadPDF(){  
+  if(pdf){  
+    pdf.save("GCIT_Certificate.pdf");  
+  }else{  
+    alert("Generate first");  
+  }  
+}  
+</script>  </body>  
+</html>  
