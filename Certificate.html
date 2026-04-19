@@ -112,16 +112,25 @@ button{
 }
 
 /* SIGN */
-<!-- Replace old .sign CSS with this -->
+<!-- Replace only .sign CSS -->
+
 .sign{
   display:flex;
   justify-content:space-between;
-  align-items:flex-end;
   margin-top:20px;
-  padding-right:130px; /* QR ke liye jagah */
+  width:100%;
 }
 
+.sign > div:first-child{
+  width:220px;
+  text-align:center;
+}
 
+.sign > div:last-child{
+  width:220px;
+  text-align:center;
+  margin-right:130px; /* sirf right signature ko QR se door karega */
+}
 
 .signature-text{
   font-family:'Great Vibes', cursive;
