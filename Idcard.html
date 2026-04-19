@@ -201,7 +201,7 @@ button{
 <input id="father" placeholder="Father Name"><br>
 <input id="idno" placeholder="ID Number"><br>
 <input id="class" placeholder="Class-Course"><br>
-
+<input id="branch" placeholder="Branch"><br>
 <input id="contact" placeholder="Contact"><br>
 <input id="address" placeholder="Address"><br>
 <input type="file" id="photoInput"><br>
@@ -251,7 +251,12 @@ button{
     <span class="value" id="i_class"></span>
   </div>
 
-  
+  <div class="row">
+    <span class="icon">🎓</span>
+    <span class="label">Branch</span>
+    <span class="colon">:</span>
+    <span class="value" id="i_branch"></span>
+  </div>
 
   <div class="row">
     <span class="icon">📞</span>
@@ -318,7 +323,7 @@ function generate(){
     document.getElementById("i_father").innerText = document.getElementById("father").value;
     document.getElementById("i_id").innerText = document.getElementById("idno").value;
     document.getElementById("i_class").innerText = document.getElementById("class").value;
-    
+    document.getElementById("i_branch").innerText = document.getElementById("branch").value;
     document.getElementById("i_contact").innerText = document.getElementById("contact").value;
     document.getElementById("i_address").innerText = document.getElementById("address").value;
 
