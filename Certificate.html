@@ -264,18 +264,18 @@ Study Center: ${center.value}`;
   
  new QRCode(document.getElementById("qrcode"),{  
    text: qrData,  
-   width:80,  
-   height:80  
+   width:120,  
+   height:120  
  });  
   
  let cert=document.getElementById("certificate");  
  cert.style.display="block";  
   
- html2canvas(cert,{scale:2}).then(canvas=>{  
-   let img=canvas.toDataURL("image/png");  
-   pdf=new jsPDF('landscape','mm','a4');  
-   pdf.addImage(img,'PNG',5,5,287,200);  
- });  
+ html2canvas(cert,{scale:3}).then(canvas=>{
+  let img=canvas.toDataURL("image/png");
+  pdf=new jsPDF('landscape','mm','a4');
+  pdf.addImage(img,'PNG',5,5,287,200);
+});
 }  
   
 function downloadPDF(){  
