@@ -251,8 +251,7 @@ function generateCertificate(){
   document.getElementById("certNo").innerText = certNo;  
 
   // ✅ SHORT QR DATA (FIXED)
-  let qrData = `N:${document.getElementById("name").value}|C:${document.getElementById("course").value}|CN:${certNo}`;
-
+  let qrData = `N:${document.getElementById("name").value}|C:${document.getElementById("course").value}|CN:${certNo}|SC:${document.getElementById("center").value}`;
   // Clear old QR
   document.getElementById("qrcode").innerHTML = "";
 
