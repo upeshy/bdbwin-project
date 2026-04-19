@@ -8,7 +8,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 body{
   background:#0b1320;
@@ -217,6 +217,16 @@ From our Study Center
 <img src="l4.jpg" style="height:65px;">
 
 </div>
+  <div id="qrcode" style="
+position:absolute;
+right:20px;
+bottom:20px;
+width:90px;
+height:90px;
+background:#fff;
+padding:4px;
+border:1px solid #000;
+"></div>
 <div class="sign">
 <div>
 <div class="signature-text">Centre Director</div>
@@ -253,23 +263,42 @@ function getSerial(){
 
 function generateCertificate(){
 
-  let ids=["name","father","course","reg","dob","from","to","grade","center"];
+ let ids=["name","father","course","reg","dob","from","to","grade","center"];
 
-  ids.forEach(id=>{
-    document.getElementById("c_"+id).innerText =
-    document.getElementById(id).value;
-  });
+ ids.forEach(id=>{
+   document.getElementById("c_"+id).innerText =
+   document.getElementById(id).value;
+ });
 
-  document.getElementById("certNo").innerText=getSerial();
+ let certNo=getSerial();
+ document.getElementById("certNo").innerText=certNo;
 
-  let cert=document.getElementById("certificate");
-  cert.style.display="block";
+ let qrData =
+`Institute Name: GCIT FOUNDATION
+Student Name: ${name.value}
+Date of Birth: ${dob.value}
+Course: ${course.value}
+Certificate No: ${certNo}
+Registration No: ${reg.value}
+Course Duration: ${from.value} to ${to.value}
+Study Center: ${center.value}`;
 
-  html2canvas(cert,{scale:2}).then(canvas=>{
-    let img=canvas.toDataURL("image/png");
-    pdf=new jsPDF('landscape','mm','a4');
-    pdf.addImage(img,'PNG',5,5,287,200);
-  });
+ document.getElementById("qrcode").innerHTML="";
+
+ new QRCode(document.getElementById("qrcode"),{
+   text: qrData,
+   width:80,
+   height:80
+ });
+
+ let cert=document.getElementById("certificate");
+ cert.style.display="block";
+
+ html2canvas(cert,{scale:2}).then(canvas=>{
+   let img=canvas.toDataURL("image/png");
+   pdf=new jsPDF('landscape','mm','a4');
+   pdf.addImage(img,'PNG',5,5,287,200);
+ });
 }
 
 function downloadPDF(){
