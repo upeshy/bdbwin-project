@@ -353,11 +353,12 @@ function generate(){
     document.getElementById("i_address").innerText = document.getElementById("address").value;
 
     // QR Data
-    let qrData = `
-Name: ${document.getElementById("name").value}
-ID: ${document.getElementById("idno").value}
-Phone: ${document.getElementById("contact").value}
-`;
+    let qrData = 
+"GCIT FOUNDATION\n" +
+"------------------------\n" +
+"Name: " + document.getElementById("name").value + "\n" +
+"ID: " + document.getElementById("idno").value + "\n" +
+"Phone: " + document.getElementById("contact").value;
 
     document.getElementById("qrcode").innerHTML = "";
 
