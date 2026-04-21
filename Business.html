@@ -165,6 +165,7 @@ button{
     </div>
 
     <div class="id-footer">
+  ☎ <span id="i_mobile2"></span><br>
   BLOCK ROAD, BAHADURPUR, RAMPUR MADAN,<br>
   DARBHANGA, BIHAR, 846002
 </div>
@@ -234,19 +235,20 @@ function generateID(){
     "Mobile: " + mobile + "\n" +
     "Serial: " + serial;
 
-    // CLEAR OLD QR
-    document.getElementById("qrcode").innerHTML = "";
+    
 
     // CREATE QR
-    new QRCode(document.getElementById("qrcode"), {
-      text: qrData,
-      width: 80,
-      height: 80
-    });
-
     let card = document.getElementById("idcard");
-    card.style.display = "block";
+card.style.display = "block";
 
+// फिर QR बनाओ
+document.getElementById("qrcode").innerHTML = "";
+
+new QRCode(document.getElementById("qrcode"), {
+  text: qrData,
+  width: 80,
+  height: 80
+});
     // ⏳ WAIT for QR render
     setTimeout(()=>{
 
