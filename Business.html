@@ -208,6 +208,7 @@ function generateID(){
 
   loadPhoto(function(){
 
+    // DATA SET
     document.getElementById("i_name").innerText = name;
     document.getElementById("i_father").innerText = father;
     document.getElementById("i_designation").innerText = document.getElementById("designation").value;
@@ -217,13 +218,38 @@ function generateID(){
     document.getElementById("i_mobile2").innerText = mobile;
     document.getElementById("i_address").innerText = document.getElementById("address").value;
 
-    document.getElementById("i_serial").innerText = getNextSerial();
+    let serial = getNextSerial();
+    document.getElementById("i_serial").innerText = serial;
+
+    // ✅ QR DATA
+    let qrData =
+    "GCIT FOUNDATION\n" +
+    "Name: " + name + "\n" +
+    "Father: " + father + "\n" +
+    "Mobile: " + mobile + "\n" +
+    "Serial: " + serial;
+
+    // CLEAR OLD QR
+    document.getElementById("qrcode").innerHTML = "";
+
+    // CREATE QR
+    new QRCode(document.getElementById("qrcode"), {
+      text: qrData,
+      width: 80,
+      height: 80
+    });
 
     let card = document.getElementById("idcard");
     card.style.display = "block";
 
+    // ⏳ WAIT for QR render
     setTimeout(()=>{
-      html2canvas(card,{scale:3}).then(canvas=>{
+
+      html2canvas(card,{
+        scale:3,
+        useCORS:true
+      }).then(canvas=>{
+
         let img = canvas.toDataURL("image/png");
 
         idPDF = new jsPDF('p','mm',[54,85.6]);
@@ -231,7 +257,8 @@ function generateID(){
 
         document.getElementById("downloadIDBtn").style.display = "inline-block";
       });
-    },500);
+
+    },700); // ⏳ IMPORTANT delay for QR
 
   });
 }
