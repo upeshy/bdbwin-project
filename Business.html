@@ -5,7 +5,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 body{
   font-family:Arial;
@@ -115,6 +115,10 @@ button{
   text-align:center;
   padding:10px;
 }
+  #qrcode{
+  display:flex;
+  justify-content:center;
+  }
 </style>
 </head>
 
@@ -155,14 +159,15 @@ button{
       <p><b>Address:</b> <span id="i_address"></span></p>
       <p><b>Serial:</b> <span id="i_serial"></span></p>
     </div>
-
+       <div id="qrcode" style="margin-top:10px;"></div>
     <div class="id-sign">
       <hr> Signature
     </div>
 
     <div class="id-footer">
-      ☎ <span id="i_mobile2"></span>
-    </div>
+  BLOCK ROAD, BAHADURPUR, RAMPUR MADAN,<br>
+  DARBHANGA, BIHAR, 846002
+</div>
 
   </div>
 </div>
